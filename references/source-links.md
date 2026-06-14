@@ -45,6 +45,10 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - OWASP Agentic Skills Top 10: https://owasp.org/www-project-agentic-skills-top-10/
 - NIST AI Risk Management Framework: https://www.nist.gov/itl/ai-risk-management-framework
 
+## Implementation examples
+
+- Bun PR with generated workflow program examples: https://github.com/oven-sh/bun/pull/30412/changes
+
 ## Use in responses
 
 - Use Agent Skills links for format, metadata, progressive disclosure, descriptions, and skill evals.
@@ -52,3 +56,4 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, MCP execution patterns, and skill architecture.
 - Use MCP links for external resources, prompts, tools, authorization, and connector design.
 - Use OWASP and NIST links for threat modeling, governance, auditability, and enterprise deployment controls.
+- Use implementation examples as concrete shape references, not as normative architecture or provider-neutral policy.

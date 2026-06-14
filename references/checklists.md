@@ -114,12 +114,14 @@ For each tool:
 - [ ] Workflow is justified by decomposition, broad coverage, parallel read-only work, verification needs, or resume requirements.
 - [ ] Single-worker loop was considered first.
 - [ ] Workflow artifact states objective, scope, success criteria, packet definitions, verification strategy, integration rules, and budgets.
+- [ ] Generated orchestration program, if used, declares metadata, args, phases, schemas, prompt builders, scheduler logic, assertions, and final result shape.
 - [ ] Approval binds to the exact workflow artifact version.
 - [ ] Each packet has one purpose, explicit inputs, narrow tool permissions, output schema, timeout, budget, and evidence requirement.
 - [ ] Worker contexts receive only packet-relevant context and tools.
 - [ ] Risky side effects remain approval-gated and are not delegated to workers.
 - [ ] Parallel execution is limited to independent, concurrency-safe work.
 - [ ] Verifier contexts are independent enough to challenge findings.
+- [ ] Assertions or gates catch null results, severe findings, missing quorum, scope drift, and exhausted budget.
 - [ ] Integration rules cover deduplication, conflict resolution, confidence, coverage gaps, and failed packets.
 - [ ] Workflow state is durable: plan, approvals, packet status, worker outputs, verifier outputs, integration notes, errors, and budget usage.
 - [ ] Reproducibility state is captured: workflow version, model/runtime settings, tool calls, result references, source revision or data snapshot, and approval records.

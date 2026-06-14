@@ -19,6 +19,99 @@ objective
 
 The important shift is that the plan is not held only in conversational context. The workflow is represented as a durable artifact or runtime object. A mature harness can inspect, approve, execute, pause, resume, and audit that object within the limits of its runtime.
 
+## Workflow as orchestration program
+
+A concrete workflow is often closer to a generated program than to a prose plan. It stores the execution structure for a set of prompts:
+
+```text
+metadata
+  -> input arguments
+  -> output schemas
+  -> prompt builders
+  -> scheduling logic
+  -> worker calls
+  -> verifier calls
+  -> assertions and gates
+  -> aggregation
+  -> final structured result
+```
+
+The orchestration program can be JavaScript, Python, YAML plus a runner, or another runtime-owned representation. The format matters less than the semantics: the workflow should make execution explicit and inspectable.
+
+Typical pieces:
+
+```text
+meta: name, description, phases
+args: files, records, accounts, reports, source sets, edit scope
+schemas: expected worker, verifier, fix, or synthesis outputs
+prompt builders: functions that create packet-specific prompts
+scheduler: pipeline, parallel, map, retry, timeout, fan-out, fan-in
+worker calls: agent(prompt, { phase, label, schema, permissions })
+gates: no null result, no severe issue, quorum reached, budget remaining
+review logic: independent votes, tiebreakers, sampling, adversarial checks
+integration: dedupe, merge, rank, summarize, preserve failures
+return value: final artifact plus coverage, errors, and budget status
+```
+
+This is what makes workflows different from a long prompt. The model may generate the program, but the harness/runtime executes the program and can inspect each step.
+
+Minimal pseudocode:
+
+```javascript
+export const meta = {
+  name: "report-review",
+  phases: [
+    { title: "Research", detail: "one worker per source cluster" },
+    { title: "Draft", detail: "synthesize findings into report sections" },
+    { title: "Review", detail: "two reviewers check claims and structure" },
+    { title: "Revise", detail: "apply confirmed review findings" },
+  ],
+};
+
+const RESEARCH_SCHEMA = { /* claims, sources, confidence */ };
+const REVIEW_SCHEMA = { /* issues, severity, evidence */ };
+
+const research = await parallel(
+  sourceClusters.map(cluster => () =>
+    agent(researchPrompt(cluster), {
+      label: `research:${cluster.id}`,
+      phase: "Research",
+      schema: RESEARCH_SCHEMA,
+    }),
+  ),
+);
+
+const draft = await agent(draftPrompt(research), {
+  label: "draft",
+  phase: "Draft",
+  schema: REPORT_SCHEMA,
+});
+
+const reviews = await parallel([
+  () => agent(claimReviewPrompt(draft), { label: "review:claims", phase: "Review", schema: REVIEW_SCHEMA }),
+  () => agent(editorialReviewPrompt(draft), { label: "review:editorial", phase: "Review", schema: REVIEW_SCHEMA }),
+]);
+
+const blockers = reviews.flatMap(r => r.issues).filter(i => i.severity === "blocker");
+if (blockers.length > 0) {
+  return agent(revisionPrompt(draft, blockers), { label: "revise", phase: "Revise", schema: REPORT_SCHEMA });
+}
+
+return { report: draft, reviews, coverage: coverageSummary(research) };
+```
+
+The business version of this pattern is not only “one worker per file.” It can be:
+
+```text
+one worker per customer segment
+one worker per source cluster
+one worker per competitor
+one worker per report section
+one verifier per claim type
+two reviewers approve before finalization
+one editor rewrites after reviewers produce blocking comments
+```
+
 ## When to use workflow orchestration
 
 Use workflow orchestration when a task is:
@@ -45,7 +138,7 @@ Do not use workflow orchestration for simple edits, small read-only questions, o
 
 ## Workflow artifact
 
-A workflow should be inspectable before risky execution. Store it outside the prompt.
+A workflow should be inspectable before risky execution. Store it outside the prompt. The artifact may be a declarative spec, a generated orchestration program, or both.
 
 Recommended workflow artifact:
 
@@ -81,6 +174,8 @@ resume_state_ref: "..."
 ```
 
 The workflow artifact should be versioned. Approval should bind to the exact version that will run.
+
+If the artifact is executable or interpreted by a workflow runtime, treat it as untrusted model-generated code until validated. Review its declared phases, tool permissions, edit/write scope, budget, assertions, and output schemas before running it.
 
 ## Packet design
 
