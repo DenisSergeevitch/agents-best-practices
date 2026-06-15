@@ -129,47 +129,7 @@ When the user asks for guidance, produce a concrete architecture, not generic pr
 
 ## Common output template
 
-Use this template when the user wants a harness design. If the user asks to make/build an agent, use this as an MVP blueprint, not a purely conceptual answer:
-
-```markdown
-# MVP Agent Harness Blueprint: [domain/use case]
-
-## Objective
-[What the agent must accomplish and for whom.]
-
-## MVP scope and assumptions
-[Smallest useful version, explicit assumptions, non-goals, and what is intentionally deferred.]
-
-## Autonomy and risk level
-[Answer-only, draft-only, approval-gated, or autonomous within policy.]
-
-## Core loop
-[How the model, tools, observations, retries, and stopping rules work.]
-
-## Instruction architecture
-[System/developer/user/scoped memory layout.]
-
-## Tool registry
-[Tools, schemas, risk classes, permissions, and result format.]
-
-## Planning and goal behavior
-[When to plan, when to ask, when to continue, when to stop.]
-
-## Context and memory
-[Retrieval, durable state, compaction, and rehydration.]
-
-## Skills and connectors
-[Reusable skills, MCP/external connector policy, tool search, attachment rules.]
-
-## Safety and approvals
-[Guardrails, prompt injection treatment, secrets, sandboxing, human review.]
-
-## Observability and evals
-[Trace events, eval cases, launch criteria, failure probes.]
-
-## Minimal implementation path
-[Smallest safe version first, implementation skeleton, validation path, then measured expansion.]
-```
+When the user wants a harness design, produce a structured blueprint, not a purely conceptual answer. Follow the canonical blueprint structure in [mvp-agent-blueprint.md](references/mvp-agent-blueprint.md) ("MVP output structure"); it is the single source for the section layout, whether you are building an agent in MVP Builder Mode or advising on a design.
 
 ## Gotchas
 
