@@ -13,6 +13,10 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Goal-like loop | `agentic-loop.md`, `planning-and-goals.md` | Includes objective, done condition, budget, checkpoints, progress log, validation, and stop rules. |
 | Planning mode | `planning-and-goals.md` | Covers read-only planning, plan artifact, approval, execution after approval, and plan-validate-execute. |
 | Workflow orchestration | `workflow-orchestration.md`, `architecture.md`, `planning-and-goals.md`, `checklists.md` | Covers planner-generated workflows, work packets, worker and verifier contexts, integration, durable workflow state, budgets, approvals, and anti-patterns. |
+| Programmable context and recursive execution | `self-refining-recursive-harnesses.md`, `context-memory-compaction.md`, `workflow-orchestration.md`, `planning-and-goals.md` | Distinguishes strict prompt-as-variable processing, code-first context access, raw-model recursion, and full-harness recursion; covers aggregate tree budgets and retained-child contracts. |
+| Continual harness refinement | `self-refining-recursive-harnesses.md`, `agent-legibility-feedback-loops.md`, `security-observability.md`, `evals.md`, `checklists.md` | Covers typed supplemental state, immutable policy boundaries, structured proposals, observed validation, rollback, quarantine, and local-to-global promotion. |
+| Executable skills and learned artifacts | `self-refining-recursive-harnesses.md`, `skills-and-connectors.md`, `tools-and-permissions.md`, `security-observability.md`, `evals.md` | Separates descriptive skill knowledge from executable artifacts and covers provenance, sandboxing, review, promotion, and regression tests. |
+| Retained, daemon-backed, and scheduled lifecycle | `self-refining-recursive-harnesses.md`, `planning-and-goals.md`, `workflow-orchestration.md`, `security-observability.md` | Covers durable handles, recovery, cancellation, missed schedules, backpressure, idempotency, attribution, and garbage collection. |
 | Auto context and compaction | `context-memory-compaction.md` | Covers context tiers, scoped instruction loading, retrieval, compaction triggers, handoff summaries, and rehydration. |
 | Prompt caching and cost control | `prompt-caching-and-cost.md`, `context-memory-compaction.md`, `provider-api-patterns.md` | Covers stable-prefix design, deterministic serialization, provider cache fields, TTL/retention notes, compaction/cache tradeoffs, and monitoring. |
 | Skills attachment | `skills-and-connectors.md`, `SKILL.md` | Covers Agent Skills structure, progressive disclosure, trigger descriptions, governance, and evals. |
@@ -35,6 +39,8 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 - The skill includes prompt-cache architecture and cache-hit monitoring.
 - The skill includes agent-legibility, knowledge-base, feedback-loop, and entropy-management practices.
 - The skill includes workflow orchestration as a generic harness pattern without depending on a vendor-specific runtime.
+- The skill treats recursive execution and continual refinement as advanced, post-MVP profiles that require measured justification.
+- Mutable harness state cannot expand base authority, permissions, credentials, budgets, or evaluation policy.
 - The skill uses progressive disclosure: `SKILL.md` is the entry point; detailed guidance is in focused reference files.
 
 ## Minimum file set
@@ -49,6 +55,7 @@ agents-best-practices/
     agentic-loop.md
     tools-and-permissions.md
     workflow-orchestration.md
+    self-refining-recursive-harnesses.md
     context-memory-compaction.md
     prompt-caching-and-cost.md
     planning-and-goals.md

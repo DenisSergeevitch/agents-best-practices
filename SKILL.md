@@ -1,8 +1,8 @@
 ---
 name: agents-best-practices
-description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
+description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---
@@ -40,6 +40,7 @@ Use this skill for prompts involving any of these intents:
 - design tools, permissions, guardrails, approval flows, or sandboxing;
 - create planning mode, workflow orchestration, goal mode, todo tracking, or long-running task behavior;
 - add context compaction, memory, retrieval, scoped instructions, or prompt hierarchies;
+- design a recursive language model (RLM), programmable-context runtime, self-refining or continual harness, retained child agents, daemon-backed or scheduled agent, or executable skills;
 - attach Agent Skills, reusable workflows, MCP servers, external connectors, or tool search;
 - audit an existing agent for reliability, cost, prompt-cache hit rate, safety, latency, or observability;
 - create system prompts or developer instructions for a domain-specific agent;
@@ -73,6 +74,12 @@ Default behavior:
 5. Mark high-risk actions as draft-only or approval-gated by default.
 6. Keep the MVP to the smallest reliable single-loop harness unless the user explicitly asks for a broader architecture.
 
+## Advanced Recursive and Continual Harness Mode
+
+Use this mode only when the user explicitly asks for programmable context, recursive execution, retained children, continual refinement, executable skills, or daemon/scheduled autonomy. Treat it as post-MVP: establish a measured single-loop baseline first, then read [self-refining-recursive-harnesses.md](references/self-refining-recursive-harnesses.md) together with the context, workflow, permission, security, and eval references.
+
+Make the context representation, recursive unit, mutable state, promotion scope, lifecycle, budgets, validation probes, and rollback path explicit. Keep base authority, permission enforcement, credentials, budgets, and evaluation policy outside the mutable surface.
+
 ## Reference map
 
 - Read [mvp-agent-blueprint.md](references/mvp-agent-blueprint.md) first when the user asks to create a new domain-specific agent or MVP harness.
@@ -85,6 +92,7 @@ Default behavior:
 - Read [prompt-caching-and-cost.md](references/prompt-caching-and-cost.md) for stable-prefix design, cache-aware context ordering, compaction/cache tradeoffs, telemetry, and cost control.
 - Read [planning-and-goals.md](references/planning-and-goals.md) for planning mode, approval-gated execution, goals, checkpoints, and stopping conditions.
 - Read [workflow-orchestration.md](references/workflow-orchestration.md) for planner-generated workflows, bounded work packets, worker/verifier contexts, integration, durable workflow state, and orchestration anti-patterns.
+- Read [self-refining-recursive-harnesses.md](references/self-refining-recursive-harnesses.md) for strict RLM and RLM-inspired patterns, programmable context, recursive execution units, retained children, continual refinement, executable skills, and long-running lifecycle controls.
 - Read [skills-and-connectors.md](references/skills-and-connectors.md) for Agent Skills, progressive disclosure, MCP, external connectors, tool search, and attachment strategy.
 - Read [system-prompts-instructions.md](references/system-prompts-instructions.md) for system/developer/user instruction hierarchy and prompt templates.
 - Read [provider-api-patterns.md](references/provider-api-patterns.md) for OpenAI, Anthropic, and OpenAI-compatible API implementation patterns.
@@ -112,6 +120,7 @@ When the user asks for guidance, produce a concrete architecture, not generic pr
 11. **Evals**: test cases, failure probes, trace grading, regression suites, and launch criteria.
 12. **Rollout**: minimal viable harness first, then add autonomy only when measured results justify it.
 13. **Legibility loop**: source-of-truth artifacts, validation signals, feedback capture, and recurring cleanup.
+14. **Advanced recursive/continual profile, when requested**: context handles, recursive unit, retained lifecycle, mutable state boundary, observed validation, promotion, and rollback.
 
 ## Non-negotiable principles
 
@@ -125,6 +134,7 @@ When the user asks for guidance, produce a concrete architecture, not generic pr
 - Auto-compaction should preserve working state, not conversational prose.
 - Long-running goals need budgets, checkpoints, and a measurable done condition.
 - Workflow orchestration needs durable packet state, independent verification, integration rules, and total budget enforcement.
+- Recursive and continual harnesses may mutate only typed supplemental state; immutable runtime policy must validate changes, preserve authority boundaries, and support rollback.
 - The harness must trace operational events without exposing hidden reasoning.
 - Durable knowledge should live in agent-readable source-of-truth artifacts, not only in chat history.
 - Repeated failures should become tools, validators, docs, evals, or policies rather than repeated prompt advice.
@@ -184,6 +194,7 @@ Use this template when the user wants a harness design. If the user asks to make
 - Do not let context compaction erase approval state, active plan, loaded rules, or changed artifacts.
 - Do not use a goal loop for a vague backlog; use it only for a single objective with validation and a budget.
 - Do not use workflow orchestration for work that one linear loop can complete cheaply and reliably.
+- Do not call a harness self-improving merely because it accumulates memory, or promote a self-authored change without an observed probe and rollback path.
 - Do not rely on prompt text for safety that must be enforced by code.
 - Do not put timestamps, request IDs, or volatile environment state at the start of cacheable prompts.
 - Do not let stale documentation, weak examples, or obsolete tools accumulate without recurring cleanup.

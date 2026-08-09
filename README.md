@@ -78,7 +78,7 @@ git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   <img src="assets/agents-best-practices-illustrations/01-use-cases.jpg" alt="Xiaohei sorting agent harness use cases into MVP blueprint, audit fixes, and permission map" width="760" />
 </p>
 
-Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Three common ways to use it:
+Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Four common ways to use it:
 
 ### Case 1 - Generate an MVP agent blueprint
 
@@ -155,10 +155,33 @@ Agent  > Split by risk class. Reads can be autonomous when scoped.
 
 Use [`references/tools-and-permissions.md`](references/tools-and-permissions.md) and [`references/skills-and-connectors.md`](references/skills-and-connectors.md).
 
+### Case 4 - Design a self-refining recursive harness
+
+You have a measured single-loop agent and need an advanced, long-running profile that treats large inputs as programmable context, delegates through explicit recursive units, and improves supplemental harness state without weakening runtime policy.
+
+```text
+You    > Design a research agent that can inspect a corpus through code,
+         retain recursive child agents, and refine its skill guidance over time.
+
+Agent  > Treat this as a post-MVP architecture. Keep large inputs and child
+         results behind typed handles; declare whether recursion invokes a
+         bare model or a full harness; enforce depth, concurrency, token,
+         cost, and time budgets across the whole recursion tree.
+
+         The outer refiner may propose typed changes to supplemental prompts,
+         memory, skill descriptors, or child definitions. Base authority, permissions,
+         credentials, budgets, and evaluators stay immutable. Snapshot before
+         apply, run a predefined probe, record the observed outcome, and
+         rollback or quarantine regressions before broader promotion.
+```
+
+Use [`references/self-refining-recursive-harnesses.md`](references/self-refining-recursive-harnesses.md) with the context, workflow, permissions, security, and eval references.
+
 ### Other things the skill is good for
 
 - **"How do I add planning mode without making the agent passive?"** -> use [`references/planning-and-goals.md`](references/planning-and-goals.md).
 - **"When should a large task become a decomposed workflow?"** -> use [`references/workflow-orchestration.md`](references/workflow-orchestration.md).
+- **"How do I build an RLM, programmable-context agent, or continual refinement loop?"** -> use [`references/self-refining-recursive-harnesses.md`](references/self-refining-recursive-harnesses.md).
 - **"How should auto-compaction preserve active work?"** -> use [`references/context-memory-compaction.md`](references/context-memory-compaction.md).
 - **"What is the smallest safe coding-agent harness?"** -> use [`references/coding-agents.md`](references/coding-agents.md).
 - **"How should I evaluate an agent harness?"** -> use [`references/evals.md`](references/evals.md).
@@ -212,6 +235,7 @@ agents-best-practices/
     ├── tools-and-permissions.md              # typed tools, risk classes, approvals
     ├── planning-and-goals.md                 # planning mode and long-running goals
     ├── workflow-orchestration.md             # decomposed workflows, packets, verification
+    ├── self-refining-recursive-harnesses.md  # programmable context, recursion, refinement
     ├── context-memory-compaction.md          # context, memory, retrieval, compaction
     ├── prompt-caching-and-cost.md            # stable prefixes and cost-aware context
     ├── skills-and-connectors.md              # Agent Skills, MCP, connectors, tool search
@@ -250,6 +274,7 @@ Agent Skills package reusable domain knowledge so compatible agents can discover
 - OpenAI function calling, tools, agents, guardrails, sandboxing, Responses, and prompt caching docs are listed in [`references/source-links.md`](references/source-links.md).
 - Anthropic agent, context engineering, tool writing, long-running harness, MCP, and Agent Skills references are listed in [`references/source-links.md`](references/source-links.md).
 - MCP specification and governance references are listed in [`references/source-links.md`](references/source-links.md).
+- [Prime Agent at the researched revision](https://github.com/PrimeIntellect-ai/prime-agent/tree/a18809e00ea30638584d87b3afea7285a9d7296c) is a concrete implementation example of the advanced profile, not a normative dependency or the provider-neutral architecture.
 
 ## License
 

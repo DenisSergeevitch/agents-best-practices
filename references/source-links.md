@@ -40,6 +40,16 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - MCP authorization: https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
 - MCP tools: https://modelcontextprotocol.io/specification/2025-11-25/server/tools
 
+## Recursive and continually refining harnesses
+
+- Recursive Language Models paper: https://arxiv.org/abs/2512.24601
+- Recursive Language Models reference implementation: https://github.com/alexzhang13/rlm
+- Continual Harness paper: https://arxiv.org/abs/2605.09998
+- Continual Harness official implementation: https://github.com/sethkarten/continual-harness
+- Recursive Agent Harnesses paper: https://arxiv.org/abs/2606.13643
+- CodeAct paper: https://arxiv.org/abs/2402.01030
+- Voyager paper: https://arxiv.org/abs/2305.16291
+
 ## Security and governance
 
 - OWASP AI Agent Security Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/AI_Agent_Security_Cheat_Sheet.html
@@ -49,6 +59,8 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 ## Implementation examples
 
 - Bun PR with generated workflow program examples: https://github.com/oven-sh/bun/pull/30412/changes
+- Prime Agent repository at researched revision: https://github.com/PrimeIntellect-ai/prime-agent/tree/a18809e00ea30638584d87b3afea7285a9d7296c
+- Prime Agent launch article: https://www.primeintellect.ai/blog/prime-agent
 
 ## Use in responses
 
@@ -56,5 +68,6 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Use OpenAI links for API implementation patterns, function calling, hosted tools, guardrails, sandboxes, prompt caching, response-style APIs, and harness engineering practices.
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
 - Use MCP links for external resources, prompts, tools, authorization, and connector design.
+- Use recursive and continual harness research for taxonomy, architecture comparisons, and claims about the underlying patterns.
 - Use OWASP and NIST links for threat modeling, governance, auditability, and enterprise deployment controls.
-- Use implementation examples as concrete shape references, not as normative architecture or provider-neutral policy.
+- Use implementation examples, including Prime Agent, as concrete shape references, not as normative architecture, dependencies, or provider-neutral policy.

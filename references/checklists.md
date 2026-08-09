@@ -141,6 +141,25 @@ For each tool:
 - [ ] Output quality eval exists.
 - [ ] Skill does not silently expand permissions.
 
+## Self-refining recursive harness checklist
+
+- [ ] The advanced profile is justified by measured baseline failures or gains and marked post-MVP.
+- [ ] When strict external context is used, large inputs stay behind typed handles with bounded inspect, search, slice, and transform operations.
+- [ ] The recursive unit is explicit: raw model, full harness, or another bounded worker type.
+- [ ] Admission handles and terminal results are distinct, durable, and resumable.
+- [ ] Depth, concurrency, step, token, cost, time, and retained-child limits apply to the whole recursion tree.
+- [ ] Child authority is no broader than parent authority; permissions are enforced by immutable runtime policy.
+- [ ] Mutable state is typed, versioned, scoped, provenance-labeled, and supplemental to the base policy.
+- [ ] Base instructions, permission engine, credentials, budgets, evaluator, and audit controls are outside the mutable surface.
+- [ ] Refinement proposals are structured diffs; trajectory content remains trust-labeled data.
+- [ ] Every apply snapshots prior state, passes schema and policy checks, and occurs at a safe boundary.
+- [ ] Every applied change runs a predefined probe and records an observed outcome.
+- [ ] Regressions trigger automatic rollback or quarantine; promotion requires explicit evidence.
+- [ ] Changes remain session-local by default; cross-session or global promotion has a separate gate.
+- [ ] Executable skill changes receive sandbox, dependency, capability, provenance, and regression checks.
+- [ ] Retained, daemon-backed, and scheduled runs handle cancellation, recovery, missed ticks, backpressure, idempotency, attribution, and garbage collection.
+- [ ] Adversarial evals cover persistent prompt injection, reward hacking, authority escalation, cross-session leakage, and unbounded state growth.
+
 ## MCP/external connector checklist
 
 - [ ] Servers/connectors inventoried.

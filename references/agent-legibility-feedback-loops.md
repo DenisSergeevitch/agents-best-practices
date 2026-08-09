@@ -145,6 +145,8 @@ Standard loop:
 
 For high-throughput systems, human attention becomes the scarce resource. Automate low-risk review and reserve humans for judgment, policy exceptions, high-risk commits, and unresolved ambiguity.
 
+In an advanced post-MVP harness, repeated human corrections and trace or eval failures may feed a separate automated refiner. Keep that loop gated: it proposes a versioned supplemental-state change, the host checks scope and immutable policy, held-out evaluation measures the outcome, and failed changes are quarantined or rolled back. A model's self-reported improvement is never sufficient proof. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md); the standard execution feedback loop above remains the default.
+
 ## Throughput and merge philosophy, generalized
 
 When agents can produce many candidate artifacts, the operating model should change from manual inspection of every detail to risk-tiered validation.

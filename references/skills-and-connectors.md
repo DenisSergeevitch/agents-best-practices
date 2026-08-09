@@ -134,6 +134,19 @@ Governance:
 
 For Markdown-only skills, still review prompt-injection risk, overbroad instructions, hidden policy conflicts, and excessive tool permissions.
 
+## Descriptor versus executable package
+
+Do not confuse a mutable skill descriptor with an installed executable skill package:
+
+```text
+descriptor: activation metadata and procedural guidance loaded into context
+executable package: reviewed code, dependencies, callable entry points, schemas, and permission manifest
+```
+
+Changing a descriptor can alter model behavior, but it does not install or verify executable capability. Installing or updating a package requires an explicit supply-chain transaction: resolve and pin dependencies, review the source and manifest, provision an isolated runtime, test the declared calls, record provenance, and support disablement or rollback. A refinement mechanism may propose descriptor edits; it must not silently turn those edits into code installation or package mutation.
+
+This distinction matters for [self-refining recursive harnesses](self-refining-recursive-harnesses.md), where mutable supplemental state may refer to callable skills. It does not change this repository's Markdown-only skill policy.
+
 ## Skill evaluation
 
 Evaluate both activation and output quality.

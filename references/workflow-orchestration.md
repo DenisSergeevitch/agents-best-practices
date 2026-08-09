@@ -227,6 +227,12 @@ evidence rules
 
 Do not give every worker the full conversation, all tools, all secrets, or broad write access. Worker contexts inherit policy from the parent harness, but they do not inherit authority to approve their own actions.
 
+### Retained recursive children
+
+Most workflow workers return one bounded result and stop. An advanced recursive harness may instead admit a child as a retained session and return a handle before the child completes. That handle is not the result; the parent consumes later structured messages or artifact references.
+
+The host must own a durable child registry with parent and child identities, state, scope, budget, lease, and last-contact metadata. It must also define message schemas and limits, cancellation and budget propagation, terminal-state reconciliation, and tombstones that prevent completed or cancelled children from being silently revived after restore. Children never gain more authority than their admitted scope. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the full lifecycle and recovery contract.
+
 ## Verification
 
 For high-value workflows, verification should be separate from initial production.

@@ -26,6 +26,10 @@ compaction state loss
 subagent miscoordination
 workflow packet drift
 verification gaps
+persistent-runtime state poisoning
+refinement evidence poisoning
+authority or policy drift through self-modification
+evaluator manipulation or false improvement claims
 ```
 
 ## Guardrail layers
@@ -55,6 +59,14 @@ Rules:
 - do not copy secrets into context;
 - require approval for actions influenced by arbitrary text;
 - log the source of data used for tool calls.
+
+## Persistent runtime and self-refinement controls
+
+Persistent program state, child messages, retrieved content, and prior traces are all possible poisoning paths. Restoring them must not restore authority: revalidate references and capabilities against current policy, expire stale leases and approvals, and keep credentials outside model-controlled state.
+
+For automated refinement, make core policy, permission rules, credentials, budgets, approval logic, audit history, and evaluator definitions immutable to the refiner. Treat every proposed supplemental-state change as an untrusted typed diff. Bind it to evidence references and scope, check conflicts, apply it atomically at a turn boundary, evaluate the observed outcome, and support quarantine and rollback. Default to session-local scope; require independent authorization and regression evidence before promotion across sessions.
+
+Trace proposals as well as applied changes. Record the trigger and evidence references, proposer and evaluator versions, target component and scope, before and after hashes, policy decision, application status, observed eval delta, rollback reference, and final disposition. The model's predicted benefit is not evidence that the change worked. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the complete state and transaction model.
 
 ## Approval records
 
@@ -111,6 +123,10 @@ compaction boundaries
 workflow packet status
 workflow verification status
 workflow version and state refs
+runtime-state restore and invalidation events
+refinement proposal and disposition
+refinement target, scope, and before/after hashes
+refinement evidence, evaluator, observed delta, and rollback refs
 latency
 token usage
 cost

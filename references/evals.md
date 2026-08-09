@@ -108,6 +108,34 @@ single agent vs decomposed workers
 
 Track both lift and cost. A component that improves rare cases but harms common cases should stay off the MVP path until the product needs it.
 
+## Self-refinement evals
+
+Online refinement is an advanced, post-MVP feature. Compare the same tasks and model under at least these conditions:
+
+```text
+frozen harness
+refiner proposes changes but cannot apply them
+session-local auto-apply with validation and rollback
+cross-session promotion through an independent gate
+```
+
+Use rolling task sequences plus held-out regression, policy, and adversarial cases. Include clean and poisoned evidence, contradictory feedback, repeated non-improving failures, restart and restore boundaries, and attempts to modify authority or the evaluator. Evaluate candidate changes on evidence they were not fitted to before wider promotion.
+
+Measure:
+
+```text
+accepted improvement rate: applied changes with held-out lift / all applied changes
+false-improvement acceptance rate: applied changes with no lift or a regression / all applied changes
+regression and rollback rate
+rollback recovery time and residual state
+policy-drift or authority-escalation acceptance rate
+cross-session leakage
+harness-state growth, duplication, and stale-entry rate
+task quality, cost, latency, and intervention rate over time
+```
+
+Report results against the frozen baseline and attribute lift to the specific accepted diff. If repeated updates cannot beat that baseline without unacceptable regressions, keep automated application disabled. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the refinement contract these cases exercise.
+
 ## Regression loop
 
 Every incident, review finding, or repeated manual correction should become a regression eval:

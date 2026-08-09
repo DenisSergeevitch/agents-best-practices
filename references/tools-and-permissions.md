@@ -165,6 +165,14 @@ For repository-facing agents, use [coding-agents.md](coding-agents.md) for the c
 
 The short rule is: make repo inspection, patching, validation, review handoff, and safety tools explicit. If shell is necessary, wrap it with command normalization, fixed cwd, approval policy, path extraction, timeouts, output caps, secret isolation, and structured results.
 
+## Programmatic execution facade
+
+An advanced harness may expose one model-facing interpreter or notebook instead of many first-class tool calls. Treat that interface as a policy-mediated facade, not as a grant of ambient authority. Every host capability reached from the program must still resolve to a typed operation with its own identity, schema validation, resource scope, permission decision, timeout, output limit, and audit event.
+
+Keep credentials and authoritative state in the host. The interpreter should receive handles or redacted results, not raw secrets, and it must not be able to forge approvals or bypass per-operation policy. Persisted variables are useful working state, but they are untrusted input when restored.
+
+A persistent REPL is not a sandbox. Isolate and constrain the execution environment independently, and assume generated code can misuse every filesystem path, network route, process primitive, credential, and host bridge exposed to it. Use this pattern only after a narrow tool loop is reliable; see [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the advanced composition.
+
 ## Tool result format
 
 Return structured observations:
