@@ -257,6 +257,8 @@ full_schema
 examples
 ```
 
+This pattern progressively reveals tools that are already registered and governed. When the environment itself is late-bound and candidates need provenance checks, safe probes, exact runtime bindings, or drift invalidation, use [environment-adaptive tools](environment-adaptive-tools.md). Discovery and binding do not install a connector or executable package; installation remains a separate reviewed transaction.
+
 ## Code execution with connectors
 
 When many tools or large data are involved, consider using a sandboxed execution environment to interact with connector APIs programmatically. Benefits:
@@ -288,7 +290,7 @@ Avoid:
 - Agent Skills creator best practices: https://agentskills.io/skill-creation/best-practices
 - Agent Skills description optimization: https://agentskills.io/skill-creation/optimizing-descriptions
 - Agent Skills evaluation guide: https://agentskills.io/skill-creation/evaluating-skills
-- MCP specification: https://modelcontextprotocol.io/specification/2025-11-25
-- MCP authorization: https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
+- MCP specification: https://modelcontextprotocol.io/specification/2026-07-28
+- MCP authorization: https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
 - OpenAI tools: https://developers.openai.com/api/docs/guides/tools
 - Anthropic code execution with MCP: https://www.anthropic.com/engineering/code-execution-with-mcp

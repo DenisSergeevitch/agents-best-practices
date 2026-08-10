@@ -19,6 +19,10 @@ unsafe external communication
 financial or destructive side effects
 connector abuse
 malicious skill packages
+malicious or misleading capability descriptors
+unsafe capability probing
+capability substitution or schema drift
+stale or cross-scope runtime bindings
 runaway loops
 cost exhaustion
 false success claims
@@ -113,6 +117,12 @@ model and provider
 context size
 instructions loaded
 tools visible
+environment admission, generation, and catalogue version
+capability query, pagination, and visible result IDs
+descriptor source, digest, trust, validation evidence, and contradictions
+capability probe mode, policy decision, budgets, and bounded result
+capability binding identity, scope, policy version, lease, and approval reference
+binding refresh, invalidation, release, and internal reason
 tool calls
 tool args hash or redacted args
 permission decisions
@@ -154,6 +164,7 @@ Before production:
 - prompt injection tests pass;
 - compaction tests pass;
 - connector auth and revocation tested;
+- late-bound capability probing, binding, revocation, and schema-drift handling tested where that profile is enabled;
 - trace logging enabled;
 - cost budgets enforced;
 - rollback or incident path documented;
@@ -177,4 +188,4 @@ When an agent misbehaves:
 - OpenAI sandbox agents: https://developers.openai.com/api/docs/guides/agents/sandboxes
 - Anthropic building effective agents: https://www.anthropic.com/research/building-effective-agents
 - Anthropic writing effective tools for agents: https://www.anthropic.com/engineering/writing-tools-for-agents
-- MCP specification: https://modelcontextprotocol.io/specification/2025-11-25
+- MCP specification: https://modelcontextprotocol.io/specification/2026-07-28

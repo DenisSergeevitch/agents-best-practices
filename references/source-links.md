@@ -15,6 +15,7 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - OpenAI Agents guide: https://developers.openai.com/api/docs/guides/agents
 - OpenAI function calling: https://developers.openai.com/api/docs/guides/function-calling
 - OpenAI tools: https://developers.openai.com/api/docs/guides/tools
+- OpenAI tool search: https://developers.openai.com/api/docs/guides/tools-tool-search
 - OpenAI guardrails and human review: https://developers.openai.com/api/docs/guides/agents/guardrails-approvals
 - OpenAI agent safety: https://developers.openai.com/api/docs/guides/agent-builder-safety
 - OpenAI sandbox agents: https://developers.openai.com/api/docs/guides/agents/sandboxes
@@ -32,13 +33,29 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Anthropic effective harnesses for long-running agents: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
 - Anthropic demystifying evals for agents: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
 - Anthropic code execution with MCP: https://www.anthropic.com/engineering/code-execution-with-mcp
+- Anthropic tool search: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool
 - Anthropic Agent Skills engineering note: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
 
 ## MCP
 
-- MCP specification: https://modelcontextprotocol.io/specification/2025-11-25
-- MCP authorization: https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
-- MCP tools: https://modelcontextprotocol.io/specification/2025-11-25/server/tools
+- MCP specification, stable 2026-07-28: https://modelcontextprotocol.io/specification/2026-07-28
+- MCP specification source at the stable tag: https://github.com/modelcontextprotocol/modelcontextprotocol/tree/5f5440bb26a62e2cf3440b92da5a667efa03b267
+- MCP authorization: https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization
+- MCP server discovery: https://modelcontextprotocol.io/specification/2026-07-28/server/discover
+- MCP tools: https://modelcontextprotocol.io/specification/2026-07-28/server/tools
+
+## Environment-adaptive and programmatic tool use
+
+- CodeAct paper, arXiv v4: https://arxiv.org/abs/2402.01030v4
+- CodeAct ICML 2024 publication: https://proceedings.mlr.press/v235/wang24h.html
+- CodeAct official implementation at researched revision: https://github.com/xingyaoww/code-act/tree/d607f56c9cfe9e8632ebaf65dcaf2b4b7fe1c6f8
+- ToolLLM paper, arXiv v2: https://arxiv.org/abs/2307.16789v2
+- ToolLLM ICLR 2024 publication: https://proceedings.iclr.cc/paper_files/paper/2024/hash/28e50ee5b72e90b50e7196fde8ea260e-Abstract-Conference.html
+- ToolBench official implementation at the paper-era revision: https://github.com/OpenBMB/ToolBench/tree/ce541837c92f47f832e91f3ae92480fbbdb9a1e3
+- Gorilla paper, arXiv v1: https://arxiv.org/abs/2305.15334v1
+- Gorilla NeurIPS 2024 publication: https://proceedings.nips.cc/paper_files/paper/2024/hash/e4c61f578ff07830f5c37378dd3ecb0d-Abstract-Conference.html
+- Gorilla official implementation at the paper-era release: https://github.com/ShishirPatil/gorilla/tree/29f5ffb6726e3fab8c7fc7bfe017d037a693b10d
+- NovelAPIBench paper, arXiv v1 preprint: https://arxiv.org/abs/2606.03657v1
 
 ## Recursive and continually refining harnesses
 
@@ -47,7 +64,6 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Continual Harness paper: https://arxiv.org/abs/2605.09998
 - Continual Harness official implementation: https://github.com/sethkarten/continual-harness
 - Recursive Agent Harnesses paper: https://arxiv.org/abs/2606.13643
-- CodeAct paper: https://arxiv.org/abs/2402.01030
 - Voyager paper: https://arxiv.org/abs/2305.16291
 
 ## Security and governance
@@ -67,7 +83,8 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Use Agent Skills links for format, metadata, progressive disclosure, descriptions, and skill evals.
 - Use OpenAI links for API implementation patterns, function calling, hosted tools, guardrails, sandboxes, prompt caching, response-style APIs, and harness engineering practices.
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
-- Use MCP links for external resources, prompts, tools, authorization, and connector design.
+- Use MCP links for wire-level server and tool discovery, typed catalogues, authorization, catalogue caching and change signals, and connector design. The protocol does not by itself verify semantic suitability, establish trust, or grant execution authority.
+- Use environment-adaptive and programmatic tool research for claims about code-as-action, large or unseen API catalogues, retrieval against changing documentation, and novel API use; do not treat those sources as proof of the stronger host-owned discovery, binding, or authority contracts in this skill.
 - Use recursive and continual harness research for taxonomy, architecture comparisons, and claims about the underlying patterns.
 - Use OWASP and NIST links for threat modeling, governance, auditability, and enterprise deployment controls.
 - Use implementation examples, including Prime Agent, as concrete shape references, not as normative architecture, dependencies, or provider-neutral policy.

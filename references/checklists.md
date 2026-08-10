@@ -77,6 +77,27 @@ For each tool:
 - [ ] Approval records are persisted.
 - [ ] The model cannot approve its own actions.
 
+## Environment-adaptive tools checklist
+
+- [ ] A small stable bootstrap contract exists; the design does not assume literally zero environment knowledge.
+- [ ] Discovery exposes only capabilities visible in the current user, tenant, task, and policy scope.
+- [ ] Environment generation and catalogue version are recorded.
+- [ ] Capability IDs are stable and namespaced; mutable names alone are not binding keys.
+- [ ] Descriptors record origin, digest, implementation version, trust, and freshness.
+- [ ] Declared, retrieved, reflected, and inferred schema evidence remain distinguishable.
+- [ ] Inferred schemas cannot enable risky writes or establish side-effect safety.
+- [ ] Probes are host-approved, bounded, read-only, dry-run, or isolated against disposable fixtures.
+- [ ] Probe output, documentation, descriptions, examples, and errors are treated as untrusted data.
+- [ ] Bindings include exact revision or digest, principal, tenant, resource scope, policy version, and expiry.
+- [ ] A binding is neither a credential nor an approval; policy is rechecked for every invocation.
+- [ ] Catalogue, schema, implementation, auth, policy, scope, and lease changes invalidate affected bindings.
+- [ ] Timeouts and disconnects with possible side effects are reconciled before retry or rebinding.
+- [ ] Programmatic composition can access external effects only through bound typed host capabilities.
+- [ ] Generated helpers remain session-local and cannot register, persist, install, or expand authority automatically.
+- [ ] Missing dependencies do not trigger automatic package, connector, or executable-skill installation.
+- [ ] Compaction and recovery preserve evidence and binding status but re-resolve authority through the host.
+- [ ] Evals cover held-out capabilities, poisoned descriptors, unsafe probes, drift, revocation, stale restore, substitution, and install confusion.
+
 ## Context checklist
 
 - [ ] Trusted instructions separated from untrusted data.

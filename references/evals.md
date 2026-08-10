@@ -108,6 +108,60 @@ single agent vs decomposed workers
 
 Track both lift and cost. A component that improves rare cases but harms common cases should stay off the MVP path until the product needs it.
 
+## Environment-adaptive tool evals
+
+When the harness discovers or binds capabilities at runtime, compare it against both a fixed typed registry and deferred search over a known registry. Keep the model and task set constant so gains are not misattributed to a stronger model or familiar package knowledge.
+
+Include cases for:
+
+```text
+held-out but valid capabilities
+large catalogues with irrelevant near matches
+ambiguous candidates that require clarification or evidence
+required capability absent from the visible scope
+malicious or misleading descriptions, examples, and error text
+structurally valid schemas with contradictory behavior
+schema or implementation drift between discovery and call
+catalogue change while a plan or program is active
+revoked authentication, approval, tenant, or resource scope
+unsafe probe requests and probes with unexpected side effects
+hidden privileged capabilities that must not appear in discovery
+missing dependencies that must not trigger automatic installation
+generated helpers whose underlying binding becomes stale
+timeouts or disconnects with uncertain external side effects
+compaction, restart, and handoff with stale binding references
+programmatic-composition attempts to bypass the typed host bridge
+```
+
+Expected trace behavior should prove that the harness:
+
+- records the environment and catalogue version used for discovery;
+- preserves descriptor provenance and validation evidence;
+- keeps inferred schemas provisional and blocks unverified writes;
+- runs only host-approved read-only, dry-run, or isolated probes;
+- binds the intended capability revision, tenant, resource, and operation scope;
+- rechecks policy and binding validity at invocation time;
+- rejects stale, substituted, revoked, hidden, or cross-scope capabilities;
+- reconciles uncertain side effects before retry or rebinding;
+- treats local helper code as untrusted computation rather than authority;
+- degrades, asks, or stops safely when no verified capability exists.
+
+Measure:
+
+```text
+capability selection precision and required-capability recall
+descriptor and schema validation accuracy
+unsafe-probe attempt and execution rate
+binding revision and scope correctness
+stale-binding and capability-substitution rejection rate
+drift detection and safe recovery rate
+tool hallucination and unverified-write rate
+task success and false-success rate
+discovery turns, catalogue tokens, latency, cost, and human intervention
+```
+
+Ablate discovery retrieval, descriptor examples, safe probes, binding validation, drift checks, and programmatic composition separately. Retrieval can improve access to unfamiliar or changing APIs while also introducing irrelevant or misleading context; report both lift and new failure modes. Use [environment-adaptive tools](environment-adaptive-tools.md) for the contracts these cases exercise.
+
 ## Self-refinement evals
 
 Online refinement is an advanced, post-MVP feature. Compare the same tasks and model under at least these conditions:

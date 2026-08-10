@@ -251,7 +251,10 @@ After compaction, reattach:
 - relevant retrieved resource references;
 - recent important tool observations;
 - connector/tool availability changes;
+- late-bound environment and catalogue versions, selected capability references, binding status, and invalidation summaries;
 - sandbox or workspace state references.
+
+Rehydrated binding references are not authority. Resolve them again through the host under current identity, tenant, catalogue, policy, and approval state; see [environment-adaptive tools](environment-adaptive-tools.md).
 
 The next model call should not need to rediscover the task from scratch.
 
@@ -309,6 +312,7 @@ instruction map
 policy index
 runbook index
 schema inventory
+capability inventory with provenance, validation, and freshness status
 active plans
 completed decisions
 quality scorecards

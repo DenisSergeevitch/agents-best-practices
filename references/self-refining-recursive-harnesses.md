@@ -16,6 +16,7 @@ This reference owns only the composition-specific contracts. Reuse the existing 
 | prompt context, memory, compaction, and rehydration | [context-memory-compaction.md](context-memory-compaction.md) |
 | planned packets, worker verification, and integration | [workflow-orchestration.md](workflow-orchestration.md) |
 | tool schemas, permissions, approvals, and sandboxes | [tools-and-permissions.md](tools-and-permissions.md) |
+| late-bound capability discovery, verification, binding, and drift | [environment-adaptive-tools.md](environment-adaptive-tools.md) |
 | installed skills and connector governance | [skills-and-connectors.md](skills-and-connectors.md) |
 | human-directed harness improvement | [agent-legibility-feedback-loops.md](agent-legibility-feedback-loops.md) |
 | threat modeling, traces, and incident response | [security-observability.md](security-observability.md) |
@@ -143,6 +144,8 @@ Requirements:
 - child, message, and artifact handles are opaque and tenant-scoped;
 - the environment cannot read host secrets, forge approvals, or edit audit state;
 - restoring a program snapshot never bypasses current policy or capability checks.
+
+If those host capabilities are not fully known before the run, their discovery and rebinding must follow the [environment-adaptive tool lifecycle](environment-adaptive-tools.md); the program environment does not own the catalogue or binding authority.
 
 For strict RLM behavior, bind the external input to a stable handle or variable without placing its full content in the root prompt. For hybrid behavior, state clearly which prompt material is already in model context and which values are available only through the program environment.
 

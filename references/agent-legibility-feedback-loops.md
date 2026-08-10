@@ -67,6 +67,8 @@ related_docs
 known_staleness_risks
 ```
 
+For late-bound environments, keep capability inventories explicit about origin, environment and catalogue version, descriptor digest, validation evidence, binding status, and expiry. Use [environment-adaptive tools](environment-adaptive-tools.md) for the lifecycle; this file owns only making those artifacts discoverable and fresh.
+
 Version plans, decisions, quality reports, and generated references where possible. A durable local artifact is easier for an agent to discover and reuse than a prior chat discussion.
 
 ## Agent-legible environment

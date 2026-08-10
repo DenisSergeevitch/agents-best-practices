@@ -21,8 +21,9 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Prompt caching and cost control | `prompt-caching-and-cost.md`, `context-memory-compaction.md`, `provider-api-patterns.md` | Covers stable-prefix design, deterministic serialization, provider cache fields, TTL/retention notes, compaction/cache tradeoffs, and monitoring. |
 | Skills attachment | `skills-and-connectors.md`, `SKILL.md` | Covers Agent Skills structure, progressive disclosure, trigger descriptions, governance, and evals. |
 | MCP and external connectors | `skills-and-connectors.md` | Covers resources/prompts/tools, staged loading, namespacing, authorization, deferred tool loading, and code-execution patterns. |
+| Environment-adaptive tools | `environment-adaptive-tools.md`, `tools-and-permissions.md`, `skills-and-connectors.md`, `evals.md` | Covers stable bootstrap interfaces, capability provenance, schema verification, bounded probes, exact runtime bindings, programmatic composition, drift invalidation, and focused evals without turning discovery into authority. |
 | System prompts and instructions | `system-prompts-instructions.md` | Covers authority hierarchy, runtime reminders, injection boundaries, and prompt templates. |
-| Tool design | `tools-and-permissions.md` | Covers schemas, risk taxonomy, structured outputs, result limits, errors, sandboxing, secrets, and tool visibility. |
+| Tool design | `tools-and-permissions.md`, `environment-adaptive-tools.md` | Covers fixed and late-bound tool contracts, schemas, risk taxonomy, structured outputs, result limits, errors, sandboxing, secrets, visibility, verification, binding, and invalidation. |
 | Permissions and approvals | `tools-and-permissions.md`, `security-observability.md` | Covers permission matrix, draft/commit split, approval records, and policy enforcement. |
 | Provider API differences | `provider-api-patterns.md` | Covers OpenAI Responses-style APIs, Chat Completions-style/OpenAI-compatible APIs, Anthropic APIs, hosted tools, adapters, streaming, and state. |
 | Security | `security-observability.md` | Covers threat model, guardrails, prompt injection, approvals, launch gates, and incidents. |
@@ -41,6 +42,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 - The skill includes workflow orchestration as a generic harness pattern without depending on a vendor-specific runtime.
 - The skill treats recursive execution and continual refinement as advanced, post-MVP profiles that require measured justification.
 - Mutable harness state cannot expand base authority, permissions, credentials, budgets, or evaluation policy.
+- Runtime capability discovery, probing, schema inference, binding, and generated helpers cannot create or expand authority.
 - The skill uses progressive disclosure: `SKILL.md` is the entry point; detailed guidance is in focused reference files.
 
 ## Minimum file set
@@ -54,6 +56,7 @@ agents-best-practices/
     coding-agents.md
     agentic-loop.md
     tools-and-permissions.md
+    environment-adaptive-tools.md
     workflow-orchestration.md
     self-refining-recursive-harnesses.md
     context-memory-compaction.md

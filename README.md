@@ -78,7 +78,7 @@ git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   <img src="assets/agents-best-practices-illustrations/01-use-cases.jpg" alt="Xiaohei sorting agent harness use cases into MVP blueprint, audit fixes, and permission map" width="760" />
 </p>
 
-Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Four common ways to use it:
+Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, environment-adaptive tools, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Five common ways to use it:
 
 ### Case 1 - Generate an MVP agent blueprint
 
@@ -155,7 +155,30 @@ Agent  > Split by risk class. Reads can be autonomous when scoped.
 
 Use [`references/tools-and-permissions.md`](references/tools-and-permissions.md) and [`references/skills-and-connectors.md`](references/skills-and-connectors.md).
 
-### Case 4 - Design a self-refining recursive harness
+### Case 4 - Adapt to a late-bound tool environment
+
+Your agent must operate across customer, connector, package, or runtime environments whose useful capabilities are not fully known when the harness is designed.
+
+Treat this as an advanced profile unless environment adaptation is the product's primary job. Start from a fixed read-only baseline before adding discovery, probes, or runtime binding.
+
+```text
+You    > The agent will enter different tenant environments. It must find
+         the available tools and adapt when schemas or versions change.
+
+Agent  > It still needs one stable bootstrap contract. Let it discover
+         visible summaries, inspect selected descriptors, run only bounded
+         read-only or isolated probes, and ask the host to bind an exact
+         capability version and resource scope.
+
+         Discovery never grants authority. Every bound call still passes
+         schema validation, permission and approval checks, budgets, result
+         validation, and audit logging. Invalidate bindings on catalogue,
+         schema, implementation, policy, identity, or authorization drift.
+```
+
+Use [`references/environment-adaptive-tools.md`](references/environment-adaptive-tools.md) with the standard tool, connector, security, and eval references.
+
+### Case 5 - Design a self-refining recursive harness
 
 You have a measured single-loop agent and need an advanced, long-running profile that treats large inputs as programmable context, delegates through explicit recursive units, and improves supplemental harness state without weakening runtime policy.
 
@@ -181,6 +204,7 @@ Use [`references/self-refining-recursive-harnesses.md`](references/self-refining
 
 - **"How do I add planning mode without making the agent passive?"** -> use [`references/planning-and-goals.md`](references/planning-and-goals.md).
 - **"When should a large task become a decomposed workflow?"** -> use [`references/workflow-orchestration.md`](references/workflow-orchestration.md).
+- **"How can an agent safely discover and bind tools in an unfamiliar environment?"** -> use [`references/environment-adaptive-tools.md`](references/environment-adaptive-tools.md).
 - **"How do I build an RLM, programmable-context agent, or continual refinement loop?"** -> use [`references/self-refining-recursive-harnesses.md`](references/self-refining-recursive-harnesses.md).
 - **"How should auto-compaction preserve active work?"** -> use [`references/context-memory-compaction.md`](references/context-memory-compaction.md).
 - **"What is the smallest safe coding-agent harness?"** -> use [`references/coding-agents.md`](references/coding-agents.md).
@@ -199,6 +223,7 @@ A reference for people building agentic systems where the model is only one part
 
 - a provider-neutral model-tool-observation loop,
 - narrow typed tools and structured tool results,
+- environment-adaptive discovery, validation, scoped binding, and drift handling,
 - runtime permission checks outside the model,
 - planning mode and approval-gated execution,
 - workflow orchestration for large decomposable tasks,
@@ -233,6 +258,7 @@ agents-best-practices/
     ├── architecture.md                       # component model and harness boundaries
     ├── agentic-loop.md                       # loop invariants, retries, budgets, stopping
     ├── tools-and-permissions.md              # typed tools, risk classes, approvals
+    ├── environment-adaptive-tools.md         # late-bound discovery, probes, bindings, drift
     ├── planning-and-goals.md                 # planning mode and long-running goals
     ├── workflow-orchestration.md             # decomposed workflows, packets, verification
     ├── self-refining-recursive-harnesses.md  # programmable context, recursion, refinement
@@ -260,7 +286,8 @@ The central tension this skill resolves: **how can an agent do useful work in re
 5. **Context is built, not dumped** - retrieve just enough, label trust boundaries, and preserve active state across compaction.
 6. **Long-running work needs budgets** - step, time, token, cost, and tool-call budgets are part of the product.
 7. **Skills and connectors are progressively disclosed** - expose names and descriptions first; load detailed workflows only when relevant.
-8. **Repeated failures become harness features** - validators, tools, docs, evals, or policies beat repeating prompt advice.
+8. **Discovery does not grant authority** - late-bound capabilities still require host validation, scoped binding, and call-time policy enforcement.
+9. **Repeated failures become harness features** - validators, tools, docs, evals, or policies beat repeating prompt advice.
 
 Read [`SKILL.md`](SKILL.md) first. Use [`references/mvp-agent-blueprint.md`](references/mvp-agent-blueprint.md) when the user asks to make or build an agent.
 
@@ -274,6 +301,7 @@ Agent Skills package reusable domain knowledge so compatible agents can discover
 - OpenAI function calling, tools, agents, guardrails, sandboxing, Responses, and prompt caching docs are listed in [`references/source-links.md`](references/source-links.md).
 - Anthropic agent, context engineering, tool writing, long-running harness, MCP, and Agent Skills references are listed in [`references/source-links.md`](references/source-links.md).
 - MCP specification and governance references are listed in [`references/source-links.md`](references/source-links.md).
+- Research on programmatic action surfaces, large tool catalogues, changing API documentation, and novel API use is listed in [`references/source-links.md`](references/source-links.md).
 - [Prime Agent at the researched revision](https://github.com/PrimeIntellect-ai/prime-agent/tree/a18809e00ea30638584d87b3afea7285a9d7296c) is a concrete implementation example of the advanced profile, not a normative dependency or the provider-neutral architecture.
 
 ## License
