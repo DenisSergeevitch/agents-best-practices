@@ -17,6 +17,7 @@ This reference owns only the composition-specific contracts. Reuse the existing 
 | planned packets, worker verification, and integration | [workflow-orchestration.md](workflow-orchestration.md) |
 | tool schemas, permissions, approvals, and sandboxes | [tools-and-permissions.md](tools-and-permissions.md) |
 | late-bound capability discovery, verification, binding, and drift | [environment-adaptive-tools.md](environment-adaptive-tools.md) |
+| speculative prelaunch and exact claiming of programmatic calls | [speculative-tool-execution.md](speculative-tool-execution.md) |
 | installed skills and connector governance | [skills-and-connectors.md](skills-and-connectors.md) |
 | human-directed harness improvement | [agent-legibility-feedback-loops.md](agent-legibility-feedback-loops.md) |
 | threat modeling, traces, and incident response | [security-observability.md](security-observability.md) |

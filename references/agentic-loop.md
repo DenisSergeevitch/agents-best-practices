@@ -183,6 +183,8 @@ Serialize:
 - shell/process execution;
 - multi-step external workflow commits.
 
+This is committed parallelism: the complete calls and their independence are already known. An advanced code-mode harness may instead predict and prelaunch eligible calls while a program is still being generated. That requires exact claim-or-run identity, isolated disposable state, separate waste budgets, and cancellation accounting; use [speculative tool execution](speculative-tool-execution.md) rather than weakening the rules above.
+
 ## Human-in-the-loop loop
 
 Sensitive actions should pause the loop:

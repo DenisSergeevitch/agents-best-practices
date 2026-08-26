@@ -78,7 +78,7 @@ git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   <img src="assets/agents-best-practices-illustrations/01-use-cases.jpg" alt="Xiaohei sorting agent harness use cases into MVP blueprint, audit fixes, and permission map" width="760" />
 </p>
 
-Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, environment-adaptive tools, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Five common ways to use it:
+Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, environment-adaptive tools, speculative tool execution, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Six common ways to use it:
 
 ### Case 1 - Generate an MVP agent blueprint
 
@@ -200,12 +200,33 @@ Agent  > Treat this as a post-MVP architecture. Keep large inputs and child
 
 Use [`references/self-refining-recursive-harnesses.md`](references/self-refining-recursive-harnesses.md) with the context, workflow, permissions, security, and eval references.
 
+### Case 6 - Speculatively overlap safe programmatic calls
+
+You have a measured code-mode harness whose critical path is dominated by expensive calls that become identifiable while the model is still generating the program.
+
+```text
+You    > Our research agent writes a REPL program and then waits on several
+         submodel calls. Can the harness start them while code is streaming?
+
+Agent  > Treat this as an experimental post-MVP scheduler. Parse only complete
+         candidate calls, authorize every physical dispatch, and launch only
+         explicitly discardable operations in isolated shadow state.
+
+         The completed program stays authoritative. Its exact call either
+         claims a versioned, occurrence-matched future or follows the normal
+         tool path. Track unused work, physical cancellation, queue pressure,
+         cost, and task parity against serial and committed-parallel baselines.
+```
+
+Use [`references/speculative-tool-execution.md`](references/speculative-tool-execution.md) with the loop, tool, security, and eval references.
+
 ### Other things the skill is good for
 
 - **"How do I add planning mode without making the agent passive?"** -> use [`references/planning-and-goals.md`](references/planning-and-goals.md).
 - **"When should a large task become a decomposed workflow?"** -> use [`references/workflow-orchestration.md`](references/workflow-orchestration.md).
 - **"How can an agent safely discover and bind tools in an unfamiliar environment?"** -> use [`references/environment-adaptive-tools.md`](references/environment-adaptive-tools.md).
 - **"How do I build an RLM, programmable-context agent, or continual refinement loop?"** -> use [`references/self-refining-recursive-harnesses.md`](references/self-refining-recursive-harnesses.md).
+- **"Can a code-mode agent start safe tool calls before generation finishes?"** -> use [`references/speculative-tool-execution.md`](references/speculative-tool-execution.md).
 - **"How should auto-compaction preserve active work?"** -> use [`references/context-memory-compaction.md`](references/context-memory-compaction.md).
 - **"What is the smallest safe coding-agent harness?"** -> use [`references/coding-agents.md`](references/coding-agents.md).
 - **"How should I evaluate an agent harness?"** -> use [`references/evals.md`](references/evals.md).
@@ -224,6 +245,7 @@ A reference for people building agentic systems where the model is only one part
 - a provider-neutral model-tool-observation loop,
 - narrow typed tools and structured tool results,
 - environment-adaptive discovery, validation, scoped binding, and drift handling,
+- experimental speculative scheduling for eligible programmatic tool calls,
 - runtime permission checks outside the model,
 - planning mode and approval-gated execution,
 - workflow orchestration for large decomposable tasks,
@@ -259,6 +281,7 @@ agents-best-practices/
     ├── agentic-loop.md                       # loop invariants, retries, budgets, stopping
     ├── tools-and-permissions.md              # typed tools, risk classes, approvals
     ├── environment-adaptive-tools.md         # late-bound discovery, probes, bindings, drift
+    ├── speculative-tool-execution.md         # prelaunch, exact claims, waste, cancellation
     ├── planning-and-goals.md                 # planning mode and long-running goals
     ├── workflow-orchestration.md             # decomposed workflows, packets, verification
     ├── self-refining-recursive-harnesses.md  # programmable context, recursion, refinement

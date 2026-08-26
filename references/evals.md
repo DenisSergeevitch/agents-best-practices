@@ -108,6 +108,65 @@ single agent vs decomposed workers
 
 Track both lift and cost. A component that improves rare cases but harms common cases should stay off the MVP path until the product needs it.
 
+## Speculative tool execution evals
+
+Compare three execution modes with the same model, instructions, tool implementations, permissions, and task set:
+
+```text
+committed serial execution
+dependency-safe parallel execution after complete calls are known
+speculative execution before the complete program is committed
+```
+
+Use both fixed authoritative programs and open-ended agent tasks. Fixed programs isolate scheduler correctness and attainable overlap. Open-ended tasks reveal changes in generated trajectories, call counts, task quality, and serving interference.
+
+Include cases for:
+
+```text
+literal arguments completed early and only at the final statement
+independent calls and dependency chains
+conditionals, loops, early exits, exceptions, and invalid final code
+arguments derived from mutable, stale, opaque, or privacy-sensitive state
+identical deterministic and stochastic calls with different multiplicity
+candidate retraction after later tokens change the program
+speculative failure followed by safe committed fallback
+timeout, rate limit, permission revocation, and binding drift before claim
+user cancellation, max-token cutoff, disconnect, and abandoned turns
+logical eviction with confirmed, failed, and unsupported physical cancellation
+ineligible writes, sends, payments, destructive actions, and approval-gated calls
+shared serving at low load, saturation, and competing committed traffic
+restart or handoff with stale future references
+```
+
+Expected trace behavior should prove that the harness:
+
+- authorizes every physical dispatch before execution;
+- never launches an ineligible side effect;
+- keeps shadow state separate from authoritative state;
+- claims only the exact binding, scope, snapshot, arguments, and occurrence;
+- returns one logical result for each committed call;
+- records every physical attempt, including failed and unused work;
+- distinguishes logical eviction from confirmed cancellation;
+- prioritizes committed traffic and disables speculation under pressure;
+- falls back only when replay safety and current permission allow it.
+
+Measure:
+
+```text
+task success, output parity, and false-success rate
+committed trajectory and call-count divergence
+p50 and p95 end-to-end and critical-path latency
+dispatch head start, wait saved, hit rate, miss rate, and candidate precision
+unused, failed, and completed-after-eviction work
+input/output tokens, monetary cost, rate use, and data exposure
+physical cancellation latency and confirmation rate
+queue delay, throughput, serving interference, and committed-work starvation
+```
+
+For deterministic tools, require exact output and ordering parity. For stochastic or time-sensitive tools, require committed multiplicity, ordering, task-quality, and distributional or semantic parity appropriate to the domain; do not claim byte-identical baseline outputs.
+
+Launch only when the target latency percentile improves without material task-quality, authority, cost, waste, or throughput regression. Keep a kill switch and automatically disable speculation when configured p95, queue, waste, cancellation, or parity thresholds fail. Use [speculative tool execution](speculative-tool-execution.md) for the contracts these cases exercise.
+
 ## Environment-adaptive tool evals
 
 When the harness discovers or binds capabilities at runtime, compare it against both a fixed typed registry and deferred search over a known registry. Keep the model and task set constant so gains are not misattributed to a stronger model or familiar package knowledge.

@@ -57,6 +57,14 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Gorilla official implementation at the paper-era release: https://github.com/ShishirPatil/gorilla/tree/29f5ffb6726e3fab8c7fc7bfe017d037a693b10d
 - NovelAPIBench paper, arXiv v1 preprint: https://arxiv.org/abs/2606.03657v1
 
+## Speculative and asynchronous tool execution
+
+- Speculative Programmatic Tool Calling article, August 2026: https://alexzhang13.github.io/blog/2026/spec-ptc/
+- Speculative Programmatic Tool Calling implementation, v0.1.1 researched revision: https://github.com/alexzhang13/spec-ptc/tree/9b78b7d6ceeaf8afd1557c4e3a999ce653fc0e17
+- Conveyor paper, arXiv v2: https://arxiv.org/abs/2406.00059v2
+- Speculative Interaction Agents paper, arXiv v2: https://arxiv.org/abs/2605.13360v2
+- AsyncFC paper, arXiv v1: https://arxiv.org/abs/2605.15077v1
+
 ## Recursive and continually refining harnesses
 
 - Recursive Language Models paper: https://arxiv.org/abs/2512.24601
@@ -85,6 +93,7 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
 - Use MCP links for wire-level server and tool discovery, typed catalogues, authorization, catalogue caching and change signals, and connector design. The protocol does not by itself verify semantic suitability, establish trust, or grant execution authority.
 - Use environment-adaptive and programmatic tool research for claims about code-as-action, large or unseen API catalogues, retrieval against changing documentation, and novel API use; do not treat those sources as proof of the stronger host-owned discovery, binding, or authority contracts in this skill.
+- Use speculative and asynchronous tool-execution research for mechanism lineage and source-observed implementations. Treat open-ended speedups as workload-specific evidence, not a general latency guarantee, and require independent task-parity, cost, waste, cancellation, and saturation evaluation.
 - Use recursive and continual harness research for taxonomy, architecture comparisons, and claims about the underlying patterns.
 - Use OWASP and NIST links for threat modeling, governance, auditability, and enterprise deployment controls.
 - Use implementation examples, including Prime Agent, as concrete shape references, not as normative architecture, dependencies, or provider-neutral policy.

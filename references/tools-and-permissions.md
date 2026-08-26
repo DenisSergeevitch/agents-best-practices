@@ -173,6 +173,8 @@ Keep credentials and authoritative state in the host. The interpreter should rec
 
 A persistent REPL is not a sandbox. Isolate and constrain the execution environment independently, and assume generated code can misuse every filesystem path, network route, process primitive, credential, and host bridge exposed to it. Use this pattern only after a narrow tool loop is reliable; see [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the advanced composition.
 
+If the harness prelaunches calls from partially generated code, use [speculative tool execution](speculative-tool-execution.md). Partial output never authorizes the call: every physical dispatch still needs the exact typed binding, local validation, permission decision, and speculation-specific resource admission defined by the host.
+
 When the catalogue, schema, version, or implementation is not known until runtime, use [environment-adaptive tools](environment-adaptive-tools.md) for the bootstrap, validation, binding, and invalidation lifecycle. The schema, permission, result, retry, sandbox, and secret rules in this file still apply to every bound call.
 
 ## Tool result format

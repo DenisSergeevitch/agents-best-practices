@@ -98,6 +98,28 @@ For each tool:
 - [ ] Compaction and recovery preserve evidence and binding status but re-resolve authority through the host.
 - [ ] Evals cover held-out capabilities, poisoned descriptors, unsafe probes, drift, revocation, stale restore, substitution, and install confusion.
 
+## Speculative tool execution checklist
+
+- [ ] A measured serial and ordinary committed-parallel baseline exists.
+- [ ] Speculation is feature-flagged, post-MVP, and justified by critical-path latency.
+- [ ] Eligible tools are explicitly classified by the host; names and descriptions do not establish purity.
+- [ ] Privacy, cost, rate, logging, cache, and shared-resource effects are included in eligibility.
+- [ ] Writes, sends, payments, destructive actions, permission changes, and approval-gated calls cannot execute speculatively.
+- [ ] Every physical dispatch resolves an exact binding, validates arguments, and passes permission policy first.
+- [ ] Shadow state is disposable and cannot access credentials, approvals, ambient authority, or authoritative mutable objects.
+- [ ] Uncertain syntax, arguments, dependencies, branches, or loops degrade to no speculation.
+- [ ] Claim identity includes implementation, configuration, scope, policy/environment generation, snapshot, arguments, and occurrence.
+- [ ] Deterministic reuse and stochastic occurrence handling are separate.
+- [ ] A miss follows the normal committed path only when another physical attempt is replay-safe.
+- [ ] The model receives one logical result per committed call while all physical attempts remain traceable.
+- [ ] Speculation has hard concurrency, dispatch, time, token, cost, byte, rate, and waste budgets.
+- [ ] Committed work has queue and capacity priority over speculative work.
+- [ ] Eviction, cancellation request, cancellation confirmation, and completion after eviction are distinct states.
+- [ ] Invalid code, abandoned turns, disconnects, and user cancellation clean up unclaimed candidates.
+- [ ] Restarts do not restore serialized futures without executor reconciliation and policy revalidation.
+- [ ] Evals cover parity, p50/p95 latency, hit/miss, waste, cost, cancellation, saturation, and ineligible effects.
+- [ ] A monitored kill switch disables speculation when quality, latency, queue, waste, or throughput gates regress.
+
 ## Context checklist
 
 - [ ] Trusted instructions separated from untrusted data.
