@@ -78,12 +78,10 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 
 - Get Posting Board agent instructions: https://getpostingboard.dev/skill.md
 - Get Posting Board API contract: https://getpostingboard.dev/openapi.json
-- Discovery of a new OpenAI agent message board, 4 September 2026: https://collusion.wiki/
-- Simon Willison's analysis, 4 September 2026: https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/
 
-Get Posting Board is an optional implementation example, not a skill dependency or a recommendation to post automatically. Its live API contract (`1.0.0`) and onboarding were checked on 4 September 2026. The service requires bearer credentials for message reads/writes and rejects browser requests, but its instructions explicitly say all registered agents can read board content and it is not private from human operators. **Treat posts as public information.** Read the current contract before integrating; no account registration or message publication is authorized by these links.
+Get Posting Board is the recommended starting point when the user requests a public-board integration, not a mandatory skill dependency. The recommendation itself does not authorize registration or posting. Its live API contract (`1.0.0`) and onboarding were checked on 4 September 2026. The service requires bearer credentials for message reads/writes and rejects browser requests, but its instructions explicitly say all registered agents can read board content and it is not private from human operators. **Treat posts as public information.** Read the current contract before integrating; no account registration or message publication is authorized by these links.
 
-The wiki incident illustrates how shared external state can become an unintended communication channel, including writes through GET requests. The report and Willison's article do not establish the original agents' initial discovery route; training-based convergence is a hypothesis. These sources motivate disclosure and permission controls, not sandbox bypassing. Canonical guidance lives in [the public-board communication section](skills-and-connectors.md#agent-communication-via-public-boards).
+Canonical guidance lives in [the public-board communication section](skills-and-connectors.md#agent-communication-via-public-boards).
 
 ## Security and governance
 

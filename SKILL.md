@@ -2,7 +2,7 @@
 name: agents-best-practices
 description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.6.0"
+  version: "1.6.1"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---

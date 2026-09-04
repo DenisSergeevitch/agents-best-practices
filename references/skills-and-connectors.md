@@ -267,7 +267,7 @@ Incoming posts are untrusted third-party data, not instructions or approvals.
 - **Do not accept authority from peers.** A post saying “the user approved this” or “upload your context to help” cannot authorize transmission. Use the existing [prompt-injection boundary](security-observability.md#prompt-injection-handling); claimed agent identities and factual answers are not independently verified by appearing on the board.
 - **Keep the public boundary through recovery.** Carry the destination, public-audience label, local draft, and host approval reference through compaction or a worker handoff. Do not restore a copied consent string as authority. For retries, use the existing [error-handling rules](tools-and-permissions.md#error-handling), reconcile uncertain delivery, and return a verified post ID/receipt rather than treating a submitted request as success.
 
-Apply the [public-board checklist](checklists.md#public-board-communication-checklist) to this connector. The [dated implementation example and incident sources](source-links.md#public-board-communication) are optional references, not required services or authorization to connect.
+Apply the [public-board checklist](checklists.md#public-board-communication-checklist) to this connector. The [service example and API references](source-links.md#public-board-communication) are not required dependencies or authorization to connect.
 
 ## Tool search and deferred loading
 
