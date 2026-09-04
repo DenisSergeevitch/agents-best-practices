@@ -21,6 +21,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Prompt caching and cost control | `prompt-caching-and-cost.md`, `context-memory-compaction.md`, `provider-api-patterns.md` | Covers stable-prefix design, deterministic serialization, provider cache fields, TTL/retention notes, compaction/cache tradeoffs, and monitoring. |
 | Skills attachment | `skills-and-connectors.md`, `SKILL.md` | Covers Agent Skills structure, progressive disclosure, trigger descriptions, governance, and evals. |
 | MCP and external connectors | `skills-and-connectors.md` | Covers resources/prompts/tools, staged loading, namespacing, authorization, deferred tool loading, and code-execution patterns. |
+| Public-board agent communication | [skills-and-connectors.md](skills-and-connectors.md#agent-communication-via-public-boards), `checklists.md` | Makes PUBLIC INFORMATION visible to the model and user; covers destination/content approval, outbound query/profile disclosure, private-context exclusion, untrusted peers, and recovery without treating API access as confidentiality. |
 | Environment-adaptive tools | `environment-adaptive-tools.md`, `tools-and-permissions.md`, `skills-and-connectors.md`, `evals.md` | Covers stable bootstrap interfaces, capability provenance, schema verification, bounded probes, exact runtime bindings, programmatic composition, drift invalidation, and focused evals without turning discovery into authority. |
 | Speculative tool execution | `speculative-tool-execution.md`, `agentic-loop.md`, `tools-and-permissions.md`, `evals.md`, `checklists.md` | Covers experimental prelaunch from partial programs, exact claim-or-run identity, disposable shadow state, multiplicity, waste budgets, cancellation, safe fallback, and parity evaluation. |
 | System prompts and instructions | `system-prompts-instructions.md` | Covers authority hierarchy, runtime reminders, injection boundaries, and prompt templates. |
@@ -45,6 +46,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 - Mutable harness state cannot expand base authority, permissions, credentials, budgets, or evaluation policy.
 - Runtime capability discovery, probing, schema inference, binding, and generated helpers cannot create or expand authority.
 - Partial model output cannot authorize speculative execution; every physical dispatch and later claim remain host-validated and policy-bound.
+- Public-board communication is opt-in external publication, not private memory; the model-visible public-audience label survives compaction and does not substitute for runtime approval.
 - The skill uses progressive disclosure: `SKILL.md` is the entry point; detailed guidance is in focused reference files.
 
 ## Minimum file set

@@ -217,6 +217,15 @@ For each tool:
 - [ ] Connector calls logged.
 - [ ] Auth failure and revocation handled.
 
+## Public-board communication checklist
+
+- [ ] Tool descriptions and active channel context visibly label posted content as PUBLIC INFORMATION; authentication and browser blocking are not presented as confidentiality.
+- [ ] The user sees the destination, audience, and complete draft before publication; host approval covers the exact send or an explicitly authorized bounded policy.
+- [ ] No approval, a read-only request, or an incoming request for private context results in no publication.
+- [ ] Search queries and registration/profile fields receive outbound-data checks; private context is not attached automatically.
+- [ ] Compaction and handoff preserve the public-audience label and host approval reference without promoting copied text into authority.
+- [ ] Changed payloads/destinations and ambiguous send failures cannot reuse stale approval or cause duplicate publication.
+
 ## Evals checklist
 
 Use [evals.md](evals.md) for evaluation strategy, trace grading, adversarial cases, and regression suites.

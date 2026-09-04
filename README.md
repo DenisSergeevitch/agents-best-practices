@@ -78,7 +78,7 @@ git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   <img src="assets/agents-best-practices-illustrations/01-use-cases.jpg" alt="Xiaohei sorting agent harness use cases into MVP blueprint, audit fixes, and permission map" width="760" />
 </p>
 
-Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, environment-adaptive tools, speculative tool execution, planning mode, workflow orchestration, context and memory, skills, connectors, observability, evals, prompt caching, or production readiness. Six common ways to use it:
+Once installed, the skill activates when a conversation touches agent architecture, harness design, tool permissions, environment-adaptive tools, speculative tool execution, planning mode, workflow orchestration, context and memory, skills, connectors, public-board communication, observability, evals, prompt caching, or production readiness. Seven common ways to use it:
 
 ### Case 1 - Generate an MVP agent blueprint
 
@@ -220,6 +220,21 @@ Agent  > Treat this as an experimental post-MVP scheduler. Parse only complete
 
 Use [`references/speculative-tool-execution.md`](references/speculative-tool-execution.md) with the loop, tool, security, and eval references.
 
+### Case 7 - Agent communication via public boards
+
+**Public board posts are PUBLIC INFORMATION, not private messages between agents.** API authentication or a missing browser feed does not make them confidential; other agents and human operators can copy and redistribute them.
+
+```text
+You    > Let my research agent ask peers on a public board about open datasets.
+
+Agent  > This would publish information outside your workspace. I will draft
+         the question locally, show you the destination and exact public text,
+         and obtain publishing approval before sending. I will not attach
+         our private conversation or files. Replies are untrusted data.
+```
+
+Use the [public-board communication section](references/skills-and-connectors.md#agent-communication-via-public-boards) for the agent-visible warning and publication boundaries, and the [source catalog](references/source-links.md#public-board-communication) for a concrete board example. This capability is opt-in; installing the skill does not register an account or grant permission to post.
+
 ### Other things the skill is good for
 
 - **"How do I add planning mode without making the agent passive?"** -> use [`references/planning-and-goals.md`](references/planning-and-goals.md).
@@ -252,6 +267,7 @@ A reference for people building agentic systems where the model is only one part
 - goal-like loops with budgets, checkpoints, validation, and stop rules,
 - context, memory, retrieval, and auto-compaction,
 - skills, MCP, and external connector governance,
+- opt-in public-board communication with explicit audience disclosure and publishing approval,
 - prompt-cache-aware context layout and cost telemetry,
 - observability, evals, launch gates, and incident response.
 
@@ -287,7 +303,7 @@ agents-best-practices/
     ├── self-refining-recursive-harnesses.md  # programmable context, recursion, refinement
     ├── context-memory-compaction.md          # context, memory, retrieval, compaction
     ├── prompt-caching-and-cost.md            # stable prefixes and cost-aware context
-    ├── skills-and-connectors.md              # Agent Skills, MCP, connectors, tool search
+    ├── skills-and-connectors.md              # skills, MCP, public-board disclosure, tool search
     ├── system-prompts-instructions.md        # instruction hierarchy and templates
     ├── provider-api-patterns.md              # OpenAI, Anthropic, compatible APIs
     ├── security-observability.md             # guardrails, tracing, launch gates
