@@ -75,6 +75,41 @@ connector state
 
 Do not treat all memory as equally authoritative. A user preference can shape formatting; it cannot override safety policy.
 
+## User-memory lifecycle
+
+Persistent facts about a person need a separate data-handling contract from session history or reusable harness instructions. Make persistence optional per deployment, and keep current user constraints available in the active conversation even when persistence is disabled or unavailable.
+
+### Eligible facts and scope
+
+- Persist only eligible user assertions or explicit confirmations, with references to the original evidence. Quoted material, tool results, and assistant guesses are not user assertions; an assistant repeating third-party text does not make it eligible. Excluding tool-result messages alone cannot establish provenance.
+- Resolve the person and tenant through the trusted host. A shared account or organization ID is insufficient for a personal profile; when individual identity is unavailable, omit personal memory. Check current subject, tenant, and resource permissions on every read and write.
+- Route every save through a host validator for permitted fact categories, provenance, scope, size, and retention. Apply deployment policy and any required user choice there; a model-generated save request does not authorize persistence.
+- Let users inspect, correct, and delete stored facts. Corrections supersede older evidence; deletion and expiry remove facts from future retrieval and invalidate derived profiles or caches. Keep only the non-content metadata necessary to prevent replay, under an explicit retention policy. A rollback or append-only audit record must not restore deleted personal content.
+
+For typed records, versions, and evidence references, reuse the [supplemental harness ledger](self-refining-recursive-harnesses.md#supplemental-harness-ledger). Its generic history model remains subject to this personal-data lifecycle. Fact capture does not imply behavioral self-refinement; changes to reusable instructions still follow the [refinement transaction](self-refining-recursive-harnesses.md#refinement-transaction).
+
+### Optional extraction outside the response path
+
+After the single-loop baseline is measured, a latency-sensitive application may add a bounded extractor that proposes fact changes after a turn or session. This worker is post-MVP and optional. Limit its source window, frequency, queue, time, tokens, and retries; it uses the same validated write path as an explicit save.
+
+Identify each extraction by subject, source-event window, and idempotency key. Capture expected fact versions and the applicable deletion generation with that window. The storage transaction must atomically check those values and current policy while applying the fact change and recording its idempotency result. A generation check followed by a separate save leaves a deletion race.
+
+Deletion or expiry must invalidate pending work and fence replay of pre-deletion evidence, including work reconstructed from old transcripts. A stale extractor cannot refresh its generation and retry the same evidence; a later explicit user assertion may create a new fact. Version conflicts require reconciliation with current facts and newer user corrections, never blind overwrite.
+
+Treat extraction as eventually consistent. Do not report a fact as saved before a committed result, and do not make the next turn depend on background completion. On timeout, failed validation, ambiguous provenance, or unavailable storage, retain the active conversation constraint and record a bounded failure; uncertain commits are reconciled through the idempotency record before retry. If a request requires durable persistence, expose its actual status to the user.
+
+### Memory read paths
+
+Use three paths within the same permission and freshness checks:
+
+| Path | Include |
+|---|---|
+| Always present | A small set of permitted, current facts necessary for nearly every request. |
+| Preloaded for this turn | Relevant facts selected from observed task or entry-point signals before the model call. |
+| Explicit lookup | Remaining facts retrieved only when needed. |
+
+All three paths filter deleted, expired, and inaccessible facts. Omit uncertain or stale facts; ask for a current value when the task depends on it. Keep personal context outside globally shared prompt content using [cache-aware ordering](prompt-caching-and-cost.md#core-rule-stable-prefix-dynamic-suffix). Measure memory behavior with the existing [eval methodology](evals.md), rather than treating retrieval volume as success.
+
 ## Retrieval strategy
 
 Use just-in-time retrieval:

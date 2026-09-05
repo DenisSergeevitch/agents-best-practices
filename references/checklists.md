@@ -64,6 +64,14 @@ For each tool:
 - [ ] Errors return structured observations.
 - [ ] Sensitive data is redacted.
 
+## Record and presentation checklist
+
+- [ ] Record provenance is scoped and refreshed through authorized reads; it cannot replace target authorization or approval.
+- [ ] Delegated reads cannot silently expand actionable record scope.
+- [ ] Authoritative fields and required exact disclosure copy come from the host's owning systems.
+- [ ] Display receipts reflect final visible ordering after filtering, pagination, or sorting; stale or ambiguous references cannot select a guessed target.
+- [ ] Provisional UI is reconciled by presentation identity and cannot authorize an action or claim completion.
+
 ## Permission checklist
 
 - [ ] Read-only tools can run automatically only inside scope.
@@ -76,6 +84,8 @@ For each tool:
 - [ ] Connector tools are namespaced and scoped.
 - [ ] Approval records are persisted.
 - [ ] The model cannot approve its own actions.
+- [ ] Repeated and concurrent writes preserve resulting-state limits across every caller sharing the resource.
+- [ ] Apply atomically rechecks approval, current policy, live state, and expected versions; conflicts produce no partial mutation.
 
 ## Environment-adaptive tools checklist
 
@@ -132,6 +142,13 @@ For each tool:
 - [ ] Loaded skills and connector state tracked.
 - [ ] Secrets are not placed in context.
 
+## User-memory checklist
+
+- [ ] Saved facts carry eligible source evidence; assistant paraphrases cannot promote third-party text into user facts.
+- [ ] Personal and shared memory scopes are explicit and permission-checked on reads and writes.
+- [ ] Retention, correction, deletion, and disabling memory are enforced by the host.
+- [ ] Delayed writes cannot resurrect deleted or superseded facts; background failures are bounded and observable.
+
 ## Planning checklist
 
 - [ ] Planning mode exists for high-risk or ambiguous tasks.
@@ -183,6 +200,7 @@ For each tool:
 - [ ] Skill activation eval exists.
 - [ ] Output quality eval exists.
 - [ ] Skill does not silently expand permissions.
+- [ ] Predictive loading is measured against on-demand loading and preserves version, scope, and cache ordering.
 
 ## Self-refining recursive harness checklist
 
@@ -241,6 +259,8 @@ Use [evals.md](evals.md) for evaluation strategy, trace grading, adversarial cas
 - [ ] High-risk action tasks.
 - [ ] Cost and latency measured.
 - [ ] Regression evals added for every production incident.
+- [ ] Fixtures reconstruct runtime state as well as messages; paired and cross-capability cases exercise required and forbidden behavior.
+- [ ] Quality, safety, completed-task cost, first useful UI, and end-to-end latency gate model/configuration selection.
 
 ## Minimal provider-neutral implementation path
 

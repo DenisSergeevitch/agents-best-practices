@@ -36,6 +36,26 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Anthropic tool search: https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool
 - Anthropic Agent Skills engineering note: https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills
 
+## Commerce interaction and memory contracts
+
+- Anthropic article, September 2, 2026: [A guide to the anatomy of effective commerce agents](https://claude.com/blog/the-anatomy-of-effective-commerce-agents).
+- Reference implementation: [commerce-agents at `fd4d59224ab96b43c6dc6888207c67b3bd5a24cf`](https://github.com/anthropics/commerce-agents/tree/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf), committed August 31, 2026; source and tests inspected September 5, 2026.
+- UI evidence: [typed presentation runner](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/commerce-common/commerce_common/presentation.py#L120) and [record enrichment, filtering, and disclosures](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/shopping-agent/core/shopping_agent/enrichment.py#L82).
+- Mutation evidence: [cart caps and serialization](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/shopping-agent/core/shopping_agent/gates.py#L85), [apply approval gate](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/merchant-agent/core/merchant_agent/gates.py#L192), and [staged-value policy recheck](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/merchant-agent/core/merchant_agent/changes.py#L188).
+- Memory evidence: [common write and lifecycle implementation](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/commerce-common/commerce_common/memory.py), [merchant identity scope](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/merchant-agent/core/merchant_agent/executor.py#L133), and [post-turn host scheduling](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/examples/demo_common/host.py#L201).
+- Evaluation and deployment evidence: [eval-authoring skill](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/plugins/commerce-builder/skills/commerce-evals/SKILL.md#L8) and [safety boundaries](https://github.com/anthropics/commerce-agents/blob/fd4d59224ab96b43c6dc6888207c67b3bd5a24cf/docs/safety.md).
+
+This is a concrete composition of existing agent-loop, skill, presentation, memory, and host-enforcement patterns. It is not a new model architecture or autonomy level. The core implementation supplies typed UI calls, server-owned record fields and disclosure copy, provenance gates, resulting-cart-state caps, and staged changes with approval and policy checks.
+
+Keep implementation limits separate from stronger guidance in this skill:
+
+- Provenance is not authorization; demo authentication is deployment-owned. Order presentation can fetch directly from the backend, and cart updates/removals can use existing membership. Filtering unknown IDs changes the UI while tool results contain text and dropped-ID notes; an acknowledged receipt of the actual displayed ordering is a stronger contract than the demo establishes.
+- Cart locking is process-local and session-scoped. Merchant limits are per change; apply checks stored values against current policy rather than refreshing live target state. Atomic limits across callers and version-bound approvals need deployment work.
+- The article recommends personal operator memory, but the merchant implementation keys memory by `merchant_id`. Post-turn extraction is scheduled by the demo host on the Messages API path; the managed path uses explicit saves. Filtering, retention, and purge-generation checks exist, but the example does not establish a durable extraction service or per-operator isolation. Source-qualified facts and atomic protection against every stale write are stronger requirements here.
+- The repository supplies eval-authoring guidance, not an executable behavioral eval harness. Internal performance claims and traffic/cache heuristics remain vendor-reported, not portable defaults or reproduced results. No live eval was run for this intake.
+
+Canonical guidance lives in [tools and permissions](tools-and-permissions.md#record-provenance-and-authoritative-fields), [user-memory lifecycle](context-memory-compaction.md#user-memory-lifecycle), [predictive skill loading](skills-and-connectors.md#predictive-loading-and-instruction-placement), and [evals](evals.md). Reuse the existing loop, cache, approval, and refinement references rather than creating a separate commerce profile.
+
 ## MCP
 
 - MCP specification, stable 2026-07-28: https://modelcontextprotocol.io/specification/2026-07-28

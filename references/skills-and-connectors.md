@@ -82,6 +82,14 @@ Bad reference trigger:
 See references/ for more information.
 ```
 
+### Predictive loading and instruction placement
+
+The host may preload a relevant, already-governed skill before the first model call when an observed signal, such as the entry page or active task type, predicts its use. Bound the selection and log the signal and loaded skill version. A signal selects context; it grants no tool permissions and cannot introduce unreviewed instructions. On an uncertain match, retain ordinary progressive loading.
+
+Choose always-loaded instructions, predictive loading, and on-demand skills from measured task frequency, quality, context cost, and saved turns. Keep mandatory policy available independently of skill activation. Avoid a universal traffic threshold: compare placement choices on representative tasks and near misses using [skill evaluation](#skill-evaluation).
+
+Place a loaded skill body in the appropriate scoped context or tool-result history without repeatedly rewriting the shared prompt prefix; follow [cache-aware ordering](prompt-caching-and-cost.md#core-rule-stable-prefix-dynamic-suffix). Use the same entry signals for [memory preloading](context-memory-compaction.md#memory-read-paths) only after its separate permission and freshness checks.
+
 ## Skill content pattern
 
 Use this structure:
