@@ -103,12 +103,20 @@ expiration or budget
 
 Approval should be tied to the specific plan version. If the plan changes materially, request approval again.
 
+## Execution-time progress scaffold
+
+Read-only planning mode restricts which actions may execute. A progress scaffold instead keeps an explicit plan or todo list available while an already-authorized task executes. These are independent controls: turning progress tracking off must not turn permission gates off, and marking a step complete does not prove the task's done condition.
+
+Keep the current progress state outside conversation history and supply its latest version before each model call. Replace the current view rather than accumulating repeated copies of the same plan. Progress updates may change task status, but must not silently revise the approved scope or action list; use the existing [plan-approval contract](#plan-approval) when substantive changes require renewed approval.
+
+Select this scaffold for measured execution needs, not as a mandatory elaborate planner. It can sustain a task abandoned before useful work or help stop repeated post-edit verification after required checks pass. Both effects change cost, and a shorter trajectory can also hide incomplete verification. Use [component diagnostics](evals.md#component-diagnostics) to measure stopping behavior against unchanged completion and verification requirements.
+
 ## Execution after planning
 
 After approval:
 
 1. Reattach the approved plan.
-2. Create a short todo list.
+2. If progress tracking is enabled, create or resume its current todo state.
 3. Execute one bounded step at a time.
 4. Validate after each meaningful change.
 5. Record progress.

@@ -137,6 +137,8 @@ For each tool:
 - [ ] Retrieved content labeled by source and trust level.
 - [ ] Exact facts preserved when needed.
 - [ ] Large outputs summarized or stored externally.
+- [ ] Context-pressure reduction tries eligible observation elision before summarization, reserves next-call headroom, and preserves protocol-valid call/result structure.
+- [ ] Historical-output recall is justified separately from evidence retention and never replays side effects to recover old output.
 - [ ] Active plan and goal reattached after compaction.
 - [ ] Approval state reattached after compaction.
 - [ ] Loaded skills and connector state tracked.
@@ -156,7 +158,8 @@ For each tool:
 - [ ] Plan artifact is stored outside prompt.
 - [ ] Plan contains objective, scope, risks, steps, validation, rollback, and done condition.
 - [ ] Approval tied to exact plan version.
-- [ ] Execution uses todo/checkpoints after approval.
+- [ ] Execution records progress/checkpoints after approval; a todo scaffold is optional.
+- [ ] Execution-time progress tracking is distinct from permission-gated planning; status updates do not change approval scope or substitute for completion evidence.
 
 ## Goal checklist
 
@@ -200,6 +203,7 @@ For each tool:
 - [ ] Skill activation eval exists.
 - [ ] Output quality eval exists.
 - [ ] Skill does not silently expand permissions.
+- [ ] Any self-update policy names its canonical source, keeps package revisions consistent, preserves local changes, respects installation permissions, and discloses unverified freshness.
 - [ ] Predictive loading is measured against on-demand loading and preserves version, scope, and cache ordering.
 
 ## Self-refining recursive harness checklist
@@ -261,6 +265,8 @@ Use [evals.md](evals.md) for evaluation strategy, trace grading, adversarial cas
 - [ ] Regression evals added for every production incident.
 - [ ] Fixtures reconstruct runtime state as well as messages; paired and cross-capability cases exercise required and forbidden behavior.
 - [ ] Quality, safety, completed-task cost, first useful UI, and end-to-end latency gate model/configuration selection.
+- [ ] Component comparisons state tested budget/configuration scope, distinguish overflow and early failure from efficiency, and use mutation evidence separately from judged phases.
+- [ ] Alternative action profiles meet equivalent host-control and verification requirements or are explicitly reported as bundled interventions.
 
 ## Minimal provider-neutral implementation path
 

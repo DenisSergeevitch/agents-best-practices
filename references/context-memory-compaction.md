@@ -209,19 +209,34 @@ Trigger compaction when:
 
 Avoid recursive compaction. If compaction fails repeatedly, stop and ask for a narrower task or larger context budget.
 
+### Staged reduction under context pressure
+
+Count the complete next-call input, including instructions and tool schemas, and reserve output capacity and observation headroom before choosing thresholds. Use an earlier soft threshold for cheap reduction and a later hard threshold for summarization, both within the usable input budget. Preserve the preamble, active state identified above, and a recent high-value window; only eligible older history is a reduction candidate. Thresholds and the protected window are tuning parameters, not portable constants.
+
+At the soft threshold, replace bulky stale tool-observation bodies with compact stubs before paying for an LLM summary. Recount tokens after elision; if the input is below the hard threshold and no handoff is required, no summarization call is needed. Summarize the oldest unprotected events only when the hard threshold still binds or an operational handoff requires it. Do not elide exact evidence still needed for the next decision. Retained messages must remain protocol-valid: preserve call/result identities and statuses, and never orphan pending tool calls or their results.
+
+This policy combines familiar mechanisms; it is not a guarantee that more compression improves reasoning. Compare it with simpler policies using [component diagnostics](evals.md#component-diagnostics), and retain the existing [cache-stability rules](#compaction-and-cache-stability).
+
 ## Compaction algorithm
 
 Provider-neutral algorithm:
 
 ```text
-1. Select history since last compaction boundary.
-2. Preserve recent high-value messages and exact user constraints.
-3. Summarize old messages into a structured handoff.
-4. Store bulky artifacts externally and reference them.
-5. Rebuild the context with summary + active artifacts.
-6. Reattach active plan, workflow state, goal, approvals, loaded instructions, invoked skills, and connector state.
-7. Add a compaction boundary event to the trace.
+1. Select eligible history since the last compaction boundary while protecting the preamble, recent high-value messages, and active state.
+2. Elide bulky stale observation bodies when the soft threshold binds; leave stubs with call identity, status, removed size, and an authorized source/artifact reference where available.
+3. Recount the next-call input; skip summarization if it is below the hard threshold and no handoff is required.
+4. If the hard threshold still binds or a handoff is required, summarize the oldest unprotected events into a structured handoff without breaking tool-call/result structure.
+5. Store bulky artifacts externally under retention policy and reference them.
+6. Rebuild context with any handoff, protected recent history, stubs, and active artifact references.
+7. Reattach active plan, workflow state, goal, approvals, loaded instructions, invoked skills, and connector state.
+8. Trace the reduction stage, before/after token counts, and any summarization call and cost; record a compaction boundary when a handoff replaces history.
 ```
+
+## Historical-output recall
+
+Durable evidence retention and a model-facing historical-output recall tool are separate decisions. Keep records required by audit, recovery, or product policy even if the model never recalls them. Do not assume that exposing recall improves task completion merely because it makes elision reversible; compare its incremental utility with elision alone at matched thresholds and with safe re-reading, using [component diagnostics](evals.md#component-diagnostics).
+
+When recall is justified, use a bounded host lookup for exact stored observations that are costly or impossible to reproduce. Historical results retain their original source, time/version, and trust labels; they are not fresh environment state or restored authority. Check current access policy on retrieval. A re-read or read-only rerun may observe changed state; never replay a write or other side effect merely to recover an old observation. Reuse [tool error and retry contracts](tools-and-permissions.md#error-handling) rather than introducing a second recovery policy.
 
 ## Handoff summary format
 

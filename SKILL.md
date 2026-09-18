@@ -2,7 +2,7 @@
 name: agents-best-practices
 description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.7.0"
+  version: "1.8.0"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---
@@ -10,6 +10,18 @@ metadata:
 # Agents Best Practices
 
 Use this skill when the user asks how to build, improve, debug, or evaluate an agentic harness. This is a general-purpose agent architecture skill. Coding agents are one subdomain only; apply the same principles to research, finance, legal, support, operations, sales, healthcare, education, data analysis, procurement, and workflow automation agents.
+
+## Freshness and self-update
+
+Canonical source: [DenisSergeevitch/agents-best-practices](https://github.com/DenisSergeevitch/agents-best-practices), branch `main`. Installed copies are snapshots, not guaranteed-current guidance.
+
+Before applying this skill in each new task:
+
+1. **Check upstream once.** Resolve the current `main` commit through an approved network tool and compare it with the installed copy's recorded source revision. A version number alone does not prove freshness. If the copy is behind or its provenance is unknown, retrieve `SKILL.md` and the needed references from that exact commit, then reread the entry point before using it. Record the source commit and skill version in working state; keep the task on that coherent snapshot rather than mixing revisions or repeatedly polling.
+2. **Persist the refresh when permitted.** A clean checkout on `main` with the verified canonical remote may update by fast-forward only. Refresh a copied installation's owned Markdown package together only when its prior baseline proves there are no local customizations; otherwise use an isolated upstream snapshot for this task. Update installer-managed packages through their supported installer, not by editing caches. Never overwrite dirty, divergent, customized, or actively maintained source trees, delete unrelated files, or bypass filesystem approval.
+3. **Handle unavailable updates honestly.** If installation writes are unavailable, use the retrieved snapshot without replacing the installation. If upstream cannot be checked or retrieved, continue with the available local copy and briefly disclose that freshness is unverified, unless the user requires verified-latest guidance. Do not claim an offline or failed check made the skill current.
+
+This updates skill knowledge only, not runtime policy or permissions. Preserve [skill governance](references/skills-and-connectors.md#skill-governance) and higher-priority instructions; do not execute downloaded code or recursively invoke self-update. When maintaining this repository, inspect the baseline and upstream revision without automatically replacing the working tree under edit.
 
 ## Core stance
 
@@ -99,23 +111,23 @@ Require host-owned eligibility, permission at physical dispatch, isolated dispos
 ## Reference map
 
 - Read [mvp-agent-blueprint.md](references/mvp-agent-blueprint.md) first when the user asks to create a new domain-specific agent or MVP harness.
-- Read [coding-agents.md](references/coding-agents.md) when the requested agent reads, edits, tests, reviews, migrates, or opens changes against a software repository.
+- Read [coding-agents.md](references/coding-agents.md) when the requested agent reads, edits, tests, reviews, migrates, or opens changes against a software repository, including measured post-MVP action-interface selection.
 - Read [architecture.md](references/architecture.md) for the full harness model and component boundaries.
 - Read [agent-legibility-feedback-loops.md](references/agent-legibility-feedback-loops.md) for source-of-truth knowledge bases, agent-legible environments, validation loops, mechanical invariants, and recurring cleanup.
 - Read [agentic-loop.md](references/agentic-loop.md) for the provider-neutral loop, step budgets, retries, and loop variants.
 - Read [speculative-tool-execution.md](references/speculative-tool-execution.md) when an advanced code-mode or programmatic-tool harness should prelaunch eligible work during generation while retaining completed-program authority and occurrence-aware claiming.
 - Read [tools-and-permissions.md](references/tools-and-permissions.md) for tool contracts, record provenance, presentation receipts, resulting-state limits, approval logic, structured results, and sandboxing.
 - Read [environment-adaptive-tools.md](references/environment-adaptive-tools.md) when the tool environment is partially known or changes at runtime and needs bootstrap discovery, schema validation, safe probing, exact binding, or drift handling.
-- Read [context-memory-compaction.md](references/context-memory-compaction.md) for context assembly, user-memory lifecycle and source eligibility, layered retrieval, auto-compaction, and handoff summaries.
+- Read [context-memory-compaction.md](references/context-memory-compaction.md) for context assembly, user-memory lifecycle and source eligibility, layered retrieval, staged elision-before-summary, optional historical-output recall, and handoff preservation.
 - Read [prompt-caching-and-cost.md](references/prompt-caching-and-cost.md) for stable-prefix design, cache-aware context ordering, compaction/cache tradeoffs, telemetry, and cost control.
-- Read [planning-and-goals.md](references/planning-and-goals.md) for planning mode, approval-gated execution, goals, checkpoints, and stopping conditions.
+- Read [planning-and-goals.md](references/planning-and-goals.md) to distinguish read-only planning mode from execution-time progress scaffolds, and for approval-gated execution, goals, checkpoints, and stopping conditions.
 - Read [workflow-orchestration.md](references/workflow-orchestration.md) for planner-generated workflows, bounded work packets, worker/verifier contexts, integration, durable workflow state, and orchestration anti-patterns.
 - Read [self-refining-recursive-harnesses.md](references/self-refining-recursive-harnesses.md) for strict RLM and RLM-inspired patterns, programmable context, recursive execution units, retained children, continual refinement, executable skills, and long-running lifecycle controls.
 - Read [skills-and-connectors.md](references/skills-and-connectors.md) for Agent Skills, progressive disclosure, predictive loading, MCP, external connectors, tool search, and attachment strategy. For public-board communication, use its [public disclosure and publication contract](references/skills-and-connectors.md#agent-communication-via-public-boards).
 - Read [system-prompts-instructions.md](references/system-prompts-instructions.md) for system/developer/user instruction hierarchy and prompt templates.
 - Read [provider-api-patterns.md](references/provider-api-patterns.md) for OpenAI, Anthropic, and OpenAI-compatible API implementation patterns.
 - Read [security-observability.md](references/security-observability.md) for guardrails, threat models, approval records, trace design, launch safety gates, and incident response.
-- Read [evals.md](references/evals.md) for evaluation strategy, runtime-state fixtures, cross-capability cases, safety trace invariants, model/configuration sweeps, and eval-driven launch criteria.
+- Read [evals.md](references/evals.md) for evaluation strategy, runtime-state fixtures, cross-capability cases, failure-aware component diagnostics across context budgets, safety trace invariants, model/configuration sweeps, and launch criteria.
 - Read [checklists.md](references/checklists.md) for condensed implementation and audit checklists.
 - Read [source-links.md](references/source-links.md) for official links and provider-specific references.
 - Read [coverage-audit.md](references/coverage-audit.md) to verify the skill covers the requested harness topics.
@@ -130,13 +142,13 @@ When the user asks for guidance, produce a concrete architecture, not generic pr
 3. **Instructions**: system/developer/user instruction hierarchy and scoped memory.
 4. **Tools**: tool registry, schemas, outputs, risk classes, permissions, and approval points.
 5. **Environment adaptation, when requested**: stable bootstrap, discovery, descriptor provenance, safe probes, exact bindings, drift invalidation, and fallback.
-6. **Context**: retrieval, memory, summarization, cache-aware ordering, compaction triggers, and rehydration.
-7. **Planning/goals**: when to enter planning mode, when to run a goal-like loop, and how to stop.
+6. **Context**: retrieval, memory, staged compaction when context pressure warrants it, recall utility, cache-aware ordering, and rehydration.
+7. **Planning/goals**: permission-gated planning versus execution progress tracking, when to run a goal-like loop, and how to stop.
 8. **Workflow orchestration**: when to decompose into durable work packets, worker contexts, verifier contexts, and integration.
 9. **Skills/connectors**: how skills and MCP/external connectors are discovered, loaded, permissioned, and audited; when public-board communication is requested, make the public audience and publication approval explicit.
 10. **Safety**: prompt injection boundaries, secrets, sandboxing, data access, and guardrails.
 11. **Observability**: traces, metrics, replay, auditability, and incident readiness.
-12. **Evals**: test cases, failure probes, trace grading, regression suites, and launch criteria.
+12. **Evals**: test cases, failure probes, component-selection diagnostics, trace grading, regression suites, and launch criteria.
 13. **Rollout**: minimal viable harness first, then add autonomy only when measured results justify it.
 14. **Legibility loop**: source-of-truth artifacts, validation signals, feedback capture, and recurring cleanup.
 15. **Advanced recursive/continual profile, when requested**: context handles, recursive unit, retained lifecycle, mutable state boundary, observed validation, promotion, and rollback.

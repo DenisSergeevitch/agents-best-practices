@@ -153,6 +153,14 @@ classify_file_sensitivity(path)
 scan_diff_for_secrets(diff_ref)
 ```
 
+## Model- and workload-dependent action interfaces
+
+Keep the explicit baseline tools as the conservative MVP default. After measuring that baseline, a shell-centric or programmatic action profile can be a post-MVP option for a model that reliably expresses the workload through that interface. Select by demonstrated action proficiency and task mix, not parameter count or a general claim that fewer tools are better. The [naming adapter below](#api-tool-name-recommendations) remains useful, but naming alignment is not proof of shell proficiency.
+
+An action profile includes tool availability, interface instructions, mutation accounting, validation support, and execution semantics. For a meaningful profile comparison, preserve equivalent host enforcement and verification requirements. Shell-mediated writes must retain the [command policy](#command-policy), [implementation invariants](#implementation-invariants), and required diagnostics rather than bypassing them. If a comparison changes these controls, report it as a bundled intervention, not an isolated tool-count effect.
+
+Capable models may bundle several approved operations into fewer interactions. Evaluate that benefit alongside out-of-interface calls, localization failures, unintended edits, and completion quality; larger commands or edits are not intrinsically better. Use [component diagnostics](evals.md#component-diagnostics) for the comparison and keep the simpler safe profile when the alternative does not meet the same quality and safety floor.
+
 ## API tool-name recommendations
 
 Tool names are part of the model interface. For coding agents, prefer names that match the dominant tool vocabulary of the model family you are serving. The harness can map those model-facing names to the same internal implementation.

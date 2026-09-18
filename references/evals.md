@@ -127,6 +127,23 @@ single agent vs decomposed workers
 
 Track both lift and cost. A component that improves rare cases but harms common cases should stay off the MVP path until the product needs it.
 
+## Component diagnostics
+
+Use matched task outcomes to explain which limitation an intervention addresses, not only whether aggregate success changes. Cross representative context-window budgets with context policies while holding the model, tasks, and other components fixed. Separately ablate progress tracking and action profiles; if resource limits permit only selected combinations, state that scope instead of claiming a full factorial result or unmeasured interactions. Repeat runs where practical, report paired uncertainty, and keep tuning cases separate from held-out evaluation.
+
+| Intervention | Matched comparison | Measurements that distinguish the mechanism |
+|---|---|---|
+| Context reduction | No cross-turn management, elision, summarization, and staged elision-before-summary at each budget | Success, context-overflow terminations, peak next-call input, reduction-stage counts, summarization calls/cost, and preservation of required active state. Distinguish keeping runs alive from changing behavior. |
+| Historical-output recall | Elision with/without recall at identical thresholds; also test staged reduction with/without recall when proposing that combination | Invocation rate, fraction of tasks using recall, recoveries that affect a later decision, task lift, and total retrieval/re-read cost. Keep audit retention constant; lack of model usage does not justify deleting required records. |
+| Progress scaffold | Tracking on/off with the same permission mode, completion criteria, and required checks | Time/calls until an actual source edit, abandonment before useful work, unmet done conditions at stop, post-edit verification on unchanged state, long-tail trajectory cost, and verification coverage. |
+| Action interface | Explicit workspace tools versus a shell-centric or programmatic profile with equivalent host controls and diagnostics | Out-of-interface emissions, localization failures, actual mutations, repeated edits, action granularity, calls/tokens, success, and safety invariants. If controls or instructions differ, declare the bundled intervention. |
+
+Record runtime termination reasons separately: completed, model stopped without meeting the done condition, context overflow, step/time/cost limit, repeated failure, approval pause, and policy denial. Phase-level call, token, and time totals can locate redundant work, but fewer turns or lower mean cost may simply reflect earlier failure. Apply the same quality floor and [completed-task economics](#model-and-configuration-sweeps) to all profiles, including failed attempts.
+
+Derive physical writes and literal no-edit termination from runtime mutation evidence or observed file state, including shell-mediated changes. Semantic phase labels from a model judge are different measurements: a missing Fix label is not proof that no file was edited. When using judged phases or failure-stage attribution, publish their definitions and validate a sample against human labels; do not replace runtime permission, mutation, or completion evidence with judge agreement.
+
+The behavior contracts remain in [context reduction and recall](context-memory-compaction.md#staged-reduction-under-context-pressure), [progress scaffolds](planning-and-goals.md#execution-time-progress-scaffold), and [coding action interfaces](coding-agents.md#model--and-workload-dependent-action-interfaces). Keep their evaluation matrix here rather than duplicating it in those owners.
+
 ## Model and configuration sweeps
 
 Compare candidate models and effort settings against the same quality floor and task mix. First hold the harness and prompt fixed to isolate configuration effects; then allow comparable prompt calibration per candidate on separate tuning cases and report held-out results with each prompt version. Keep those two comparisons distinct so a prompt fitted to one model does not settle the selection unfairly.

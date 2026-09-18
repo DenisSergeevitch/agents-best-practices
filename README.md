@@ -64,6 +64,8 @@ git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   .claude/skills/agents-best-practices
 ```
 
+**Keeping the skill current:** On each new task, the skill checks this repository's `main` revision and uses a consistent upstream snapshot when the installed copy is stale. Its [self-update instructions](SKILL.md#freshness-and-self-update) preserve local changes and installer-managed copies, respect write permissions, and disclose when freshness cannot be verified.
+
 <div align="center">
 
 [Use cases](#use-cases) · [What this is](#what-this-is) · [Philosophy](#philosophy) · [Layout](#layout) · [Sources](#sources)
@@ -239,6 +241,7 @@ Use the [public-board communication section](references/skills-and-connectors.md
 
 ### Other things the skill is good for
 
+- **"Which compaction, planning, and action-interface profile fits my model, task mix, and context budget?"** -> use [component diagnostics](references/evals.md#component-diagnostics), which links to the existing mechanism owners and separates efficiency from premature failure.
 - **"How can users act on displayed records without losing UI state or bypassing business limits?"** -> use [presentation and transaction contracts](references/tools-and-permissions.md#presentation-tools-and-rendered-state).
 - **"How should an agent remember user facts while respecting corrections, deletion, and identity boundaries?"** -> use [`references/context-memory-compaction.md`](references/context-memory-compaction.md).
 - **"How do I add planning mode without making the agent passive?"** -> use [`references/planning-and-goals.md`](references/planning-and-goals.md).
@@ -345,6 +348,7 @@ Agent Skills package reusable domain knowledge so compatible agents can discover
 - Anthropic agent, context engineering, tool writing, long-running harness, MCP, and Agent Skills references are listed in [`references/source-links.md`](references/source-links.md).
 - MCP specification and governance references are listed in [`references/source-links.md`](references/source-links.md).
 - Research on programmatic action surfaces, large tool catalogues, changing API documentation, and novel API use is listed in [`references/source-links.md`](references/source-links.md).
+- Pinned empirical evidence for model-, workload-, and budget-aware component selection is listed in the [coding-harness source notes](references/source-links.md#empirical-coding-harness-component-selection), with its tested scope and implementation caveats.
 - [Prime Agent at the researched revision](https://github.com/PrimeIntellect-ai/prime-agent/tree/a18809e00ea30638584d87b3afea7285a9d7296c) is a concrete implementation example of the advanced profile, not a normative dependency or the provider-neutral architecture.
 
 ## License

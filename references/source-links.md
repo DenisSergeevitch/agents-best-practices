@@ -10,6 +10,30 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Evaluating skill output quality: https://agentskills.io/skill-creation/evaluating-skills
 - Using scripts in skills: https://agentskills.io/skill-creation/using-scripts
 
+## Empirical coding-harness component selection
+
+- Paper: [An Empirical Study of Harness Design for Coding Agents, arXiv:2609.20804v1](https://arxiv.org/abs/2609.20804v1), submitted 17 September 2026; original HTML rechecked 19 September 2026.
+- Primary evidence: [context policy](https://arxiv.org/html/2609.20804v1#S2.SS3), [setup](https://arxiv.org/html/2609.20804v1#S3.SS1), [results](https://arxiv.org/html/2609.20804v1#S3.SS2), [trajectory analysis](https://arxiv.org/html/2609.20804v1#S4), [planning prompts](https://arxiv.org/html/2609.20804v1#S7.SS2), and [limitations](https://arxiv.org/html/2609.20804v1#Sx1).
+
+This is empirical calibration of familiar harness mechanisms, not a new model, training method, or autonomy level. The study evaluates three Nemotron-3 sizes and Mistral-Medium-3.5-128B on SWE-Bench Verified and Terminal-Bench 2.1. Its 176 settings comprise five context policies at four window budgets plus separate planning and action-interface ablations; only the context sweep covers all window budgets.
+
+Reported evidence worth retaining:
+
+- The mean managed-versus-unmanaged success gap on SWE-Bench falls from 35.7 percentage points at 32k to 2.7 at 128k. Managed policies report zero context-overflow failures. The staged policy has the lowest aggregate token-priced cost at each tested budget, not uniformly the best outcome in every cell.
+- Adding historical-output recall to elision has a mean success difference of -0.36 percentage points over 32 comparisons; 36 of 64 recall-enabled context settings never invoke it. This is a result about the evaluated recall interface, not general evidence against retrieval or durable evidence retention.
+- Persistent progress planning raises the weakest model's SWE-Bench success from 13.6% to 25.2% at higher cost. For the two strongest evaluated models, nominal cost falls roughly 30–32% with small success decreases; judged trajectories attribute much of the reduction to post-edit verification, not proof that required checks can be omitted.
+- For Nemotron-3 550B on SWE-Bench, bash-only changes success from 65.8% to 69.4% and mean cost from $2.33 to $1.11. For Mistral on that benchmark it instead drops success from 68.6% to 45.4%, while its interface preference reverses on Terminal-Bench. Model scale alone does not identify the right interface.
+
+Keep the study's limits distinct from stronger guidance in this skill:
+
+- Planning means a persistent todo scaffold, not read-only permission mode. Bash-only retains enabled auxiliary planning and recall tools. The action-interface intervention jointly changes tools, prompts, file-state tracking, and automatic diagnostics; Appendix 8 says shell edits do not share the structured-file-tool tracking/diagnostic path. It does not establish equal safeguards or a causal benefit from fewer tools alone.
+- The staged policy includes recall and earlier elision; elision-plus-summary without recall is not separately tested. Simpler policies use the later threshold. The lean staged combination is a candidate to evaluate, not an independently reproduced winner. The study's threshold/window fractions are implementation settings, not portable defaults.
+- Planning and action interfaces are ablated only under the full staged policy at 128k. Each setting runs once per task; Terminal-Bench has 89 tasks and many contrasts are not statistically significant. Transfer to other models, task types, or budgets remains unestablished.
+- Inference is locally served while dollar costs use nominal token prices, not measured production bills or latency gains. “Without edit” is derived from judge-assigned phases; literal mutation counts require runtime/file evidence rather than assuming no Fix label means no write.
+- The paper, prompts, tool descriptions, and relevant trajectory appendices were inspected. No study implementation or trajectory repository was linked from the arXiv HTML or Hugging Face metadata inspected; implementation behavior is paper-reported, not source-code audited, and experiments were not reproduced.
+
+Canonical guidance lives in [staged context reduction](context-memory-compaction.md#staged-reduction-under-context-pressure), [historical-output recall](context-memory-compaction.md#historical-output-recall), [progress scaffolds](planning-and-goals.md#execution-time-progress-scaffold), [coding action interfaces](coding-agents.md#model--and-workload-dependent-action-interfaces), and [component diagnostics](evals.md#component-diagnostics). Reuse existing permission, state-preservation, cache, and evaluation owners instead of creating another architecture profile.
+
 ## OpenAI
 
 - OpenAI Agents guide: https://developers.openai.com/api/docs/guides/agents
@@ -118,6 +142,7 @@ Canonical guidance lives in [the public-board communication section](skills-and-
 ## Use in responses
 
 - Use Agent Skills links for format, metadata, progressive disclosure, descriptions, and skill evals.
+- Use empirical coding-harness research for conditional component-selection evidence; preserve the tested scope and bundled-intervention caveats rather than turning reported averages into universal defaults.
 - Use OpenAI links for API implementation patterns, function calling, hosted tools, guardrails, sandboxes, prompt caching, response-style APIs, and harness engineering practices.
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
 - Use MCP links for wire-level server and tool discovery, typed catalogues, authorization, catalogue caching and change signals, and connector design. The protocol does not by itself verify semantic suitability, establish trust, or grant execution authority.
