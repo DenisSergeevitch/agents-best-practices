@@ -14,6 +14,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Planning mode | `planning-and-goals.md` | Covers read-only planning, plan artifact, approval, execution after approval, and plan-validate-execute; distinguishes execution-time progress scaffolds and their stopping effects from permission mode. |
 | Workflow orchestration | `workflow-orchestration.md`, `architecture.md`, `planning-and-goals.md`, `checklists.md` | Covers planner-generated workflows, work packets, worker and verifier contexts, integration, durable workflow state, budgets, approvals, and anti-patterns. |
 | Programmable context and recursive execution | `self-refining-recursive-harnesses.md`, `context-memory-compaction.md`, `workflow-orchestration.md`, `planning-and-goals.md` | Distinguishes strict prompt-as-variable processing, code-first context access, raw-model recursion, and full-harness recursion; covers aggregate tree budgets and retained-child contracts. |
+| Hardware agents and board deployment | `hardware-agents.md`, `evals.md`, `checklists.md`, `source-links.md` | Covers inference location, board/runtime inventory, launcher versus compiled installation, partition/boot selection, bounded transport and native TLS memory, power-loss state, clock/wake contracts, retained identity, rollback, and physical-versus-host evidence. |
 | Continual harness refinement | `self-refining-recursive-harnesses.md`, `agent-legibility-feedback-loops.md`, `security-observability.md`, `evals.md`, `checklists.md` | Covers typed supplemental state, immutable policy boundaries, structured proposals, observed validation, rollback, quarantine, and local-to-global promotion. |
 | Executable skills and learned artifacts | `self-refining-recursive-harnesses.md`, `skills-and-connectors.md`, `tools-and-permissions.md`, `security-observability.md`, `evals.md` | Separates descriptive skill knowledge from executable artifacts and covers provenance, sandboxing, review, promotion, and regression tests. |
 | Retained, daemon-backed, and scheduled lifecycle | `self-refining-recursive-harnesses.md`, `planning-and-goals.md`, `workflow-orchestration.md`, `security-observability.md` | Covers durable handles, recovery, cancellation, missed schedules, backpressure, idempotency, attribution, and garbage collection. |
@@ -51,6 +52,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 - Partial model output cannot authorize speculative execution; every physical dispatch and later claim remain host-validated and policy-bound.
 - Public-board communication is opt-in external publication, not private memory; the model-visible public-audience label survives compaction and does not substitute for runtime approval.
 - The skill uses progressive disclosure: `SKILL.md` is the entry point; detailed guidance is in focused reference files.
+- Hardware installation requires the measured target/boot path and preserved-state boundary; host or emulator checks do not prove physical TLS, UI, or unattended uptime.
 
 ## Minimum file set
 
@@ -63,6 +65,7 @@ agents-best-practices/
     coding-agents.md
     agentic-loop.md
     tools-and-permissions.md
+    hardware-agents.md
     environment-adaptive-tools.md
     speculative-tool-execution.md
     workflow-orchestration.md

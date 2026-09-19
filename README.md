@@ -239,6 +239,21 @@ Agent  > This would publish information outside your workspace. I will draft
 
 Use the [public-board communication section](references/skills-and-connectors.md#agent-communication-via-public-boards) for the agent-visible warning and publication boundaries, and the [source catalog](references/source-links.md#public-board-communication) for a concrete board example. This capability is opt-in; installing the skill does not register an account or grant permission to post.
 
+### Case 8 - Install an agent on a physical board
+
+```text
+You    > Put an agent on this board without losing its identity or other apps.
+
+Agent  > I will identify the board and its installed runtime first. If it has
+         an interpreter app launcher, I can add an app without replacing the
+         base firmware. For a compiled update I will verify the selected slot,
+         image fit, retained state, and rollback route before the approved write.
+         A successful upload is only one check: boot, TLS/model access, memory,
+         sleep/wake, and any approved remote effects need physical evidence.
+```
+
+Use [hardware agents and board deployment](references/hardware-agents.md) for the reconstruction and installation contracts, [hardware evals](references/evals.md#hardware-agent-evals) for failure probes, and the [dated session evidence](references/source-links.md#hardware-agent-session-mining) for observed failures and implementation caveats. Remote inference and laptop independence must be stated separately. Scheduled autonomy is not implied by installing an agent.
+
 ### Other things the skill is good for
 
 - **"Which compaction, planning, and action-interface profile fits my model, task mix, and context budget?"** -> use [component diagnostics](references/evals.md#component-diagnostics), which links to the existing mechanism owners and separates efficiency from premature failure.
@@ -303,6 +318,7 @@ agents-best-practices/
     ├── architecture.md                       # component model and harness boundaries
     ├── agentic-loop.md                       # loop invariants, retries, budgets, stopping
     ├── tools-and-permissions.md              # typed tools, risk classes, approvals
+    ├── hardware-agents.md                    # board installation, resources, reset recovery, commissioning
     ├── environment-adaptive-tools.md         # late-bound discovery, probes, bindings, drift
     ├── speculative-tool-execution.md         # prelaunch, exact claims, waste, cancellation
     ├── planning-and-goals.md                 # planning mode and long-running goals

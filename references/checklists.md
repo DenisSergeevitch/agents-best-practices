@@ -21,6 +21,23 @@
 - [ ] Traces and evals are defined before launch.
 - [ ] First rollout is limited, monitored, or shadow-mode.
 
+## Hardware agent and board deployment checklist
+
+- [ ] Inference location and dependencies on a running host are explicit.
+- [ ] Exact board/revision, runtime, flash/RAM, peripheral wiring, power, and stable USB identity are recorded.
+- [ ] Actual launcher or boot-selected application slot determines installation; other apps and persistent partitions are preserved.
+- [ ] Physical-device artifact, pinned source/dependencies, size/hash, and approved write ranges are recorded; simulator targets cannot be uploaded.
+- [ ] Private backups, boot-time mount/format behavior, migration, and state-compatible rollback are checked.
+- [ ] Request, wire-body, decoded-answer, parser/string/depth, context, event-log, and memory bounds are measured on the target runtime.
+- [ ] TLS trust/hostname verification, clock bootstrap/epoch, repeated native-heap allocations, and durable token refresh are exercised.
+- [ ] Connect/header/idle/total deadlines use supported widths and fit watchdog limits; incomplete streams cannot dispatch actions.
+- [ ] Reset before/after remote acceptance reconciles pending effects; failed storage pauses writes instead of formatting established state.
+- [ ] Sleep routes, saved wakes, clock changes, and fired-job identity obey policy without bypassing server rate-limit floors.
+- [ ] Embedded computation is evaluated on the actual interpreter; blacklist restrictions are not presented as proven isolation.
+- [ ] Observation has one serial owner and avoids reset/REPL side effects where supported.
+- [ ] Physical boot, retained identity, cycle, sleep/wake, power-cycle recovery, and approved remote read-back are recorded for the exact image.
+- [ ] Physical screen/input checks and soak duration are reported separately from logs, native tests, and host-backed emulation.
+
 ## Coding-agent MVP checklist
 
 Use the checklist in [coding-agents.md](coding-agents.md) for repository-facing coding agents. Keep this file as the general harness checklist index.

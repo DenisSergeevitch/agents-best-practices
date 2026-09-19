@@ -263,6 +263,30 @@ discovery turns, catalogue tokens, latency, cost, and human intervention
 
 Ablate discovery retrieval, descriptor examples, safe probes, binding validation, drift checks, and programmatic composition separately. Retrieval can improve access to unfamiliar or changing APIs while also introducing irrelevant or misleading context; report both lift and new failure modes. Use [environment-adaptive tools](environment-adaptive-tools.md) for the contracts these cases exercise.
 
+## Hardware agent evals
+
+For [hardware agents](hardware-agents.md), extend the existing case/trace format with board/runtime revision, source/artifact hash, state schema, transport substitutions, clock basis, and physical observation duration. Separate native fixtures, component emulation, production-loop emulation, and physical commissioning; grade only paths each layer actually executes.
+
+| Probe | Required observed result |
+|---|---|
+| Existing launcher with another app; compiled device with a different selected slot | Installer follows measured boot/discovery behavior; no guessed offset, base reflash, or removal of unrelated apps. |
+| Image just beyond slot size; simulator image offered for upload | Deployment stops before writing. |
+| Mount failure after identity exists; interrupted checkpoint replacement | No silent formatting/reinitialization; old valid state remains recoverable or writes pause. |
+| Power cut before dispatch, after remote acceptance, and before receipt checkpoint | Pending action reconciles without blind replay; unknown outcome is explicit. |
+| Largest context/catalogue and repeated TLS handshakes | Target parser/string/depth and application/native memory limits hold, or return bounded errors without leaking sockets. |
+| Fragmented/chunked streams, long headers, narrow timeout overflow, missing completion | Exact deadline semantics hold; partial/ambiguous output cannot authorize an action. |
+| Multi-byte network names and escaped surrogate pairs | Target runtime preserves valid text or reports failure; identifiers/arguments are never cosmetically clipped. |
+| Token rotation followed by reset | New credentials persist under one refresh owner; secrets remain out of public traces/packages. |
+| Clock absent/corrected, background sync, due jobs, and saved wakes | Verified TLS and logical time follow policy; sleep ceiling and server minimum holds survive restart/migration. |
+| One successful turn followed by timeout; failed compaction | Retry policy does not accidentally suppress useful work indefinitely; context never exceeds its hard ceiling. |
+| Low-memory recovery with a pending effect or remaining sleep | Recovery occurs only at a safe recorded boundary and does not create an extra cycle or reboot loop. |
+| Concurrent serial reader, stale screen phase, queued wake keys | Missing logs are not mislabeled as reboot; status/input claims require the applicable physical evidence. |
+| Embedded calculator/compiler optimization bypass | Metering is exercised on-device; unsafe programs fail without gaining file/network/credential access. |
+| Wrong identifier type for inbox acknowledgement | Runtime reports the mismatch and does not claim unprocessed work acknowledged. |
+| Rollback after state-schema/token/receipt evolution | Compatible current authority/effect state is preserved, or rollback stops for an explicit recovery decision. |
+
+Launch gates additionally require physical boot and a cycle on the exact artifact, with remote resulting-state verification for authorized effects. Scheduled products also need sleep/wake evidence; resumable products need a safe reset/power-cycle recovery probe. Unattended or overnight reliability needs a declared, completed soak; a passing host-backed run or first hour is not a substitute.
+
 ## Self-refinement evals
 
 Online refinement is an advanced, post-MVP feature. Compare the same tasks and model under at least these conditions:

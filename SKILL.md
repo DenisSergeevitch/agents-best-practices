@@ -1,8 +1,8 @@
 ---
 name: agents-best-practices
-description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
+description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, hardware agents and board deployment, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.8.0"
+  version: "1.9.0"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---
@@ -56,6 +56,7 @@ Use this skill for prompts involving any of these intents:
 - create planning mode, workflow orchestration, goal mode, todo tracking, or long-running task behavior;
 - add context compaction, memory, retrieval, scoped instructions, or prompt hierarchies;
 - design a recursive language model (RLM), programmable-context runtime, self-refining or continual harness, retained child agents, daemon-backed or scheduled agent, or executable skills;
+- build or install a hardware/embedded agent, flash an agent to a board, preserve device identity during an update, or debug its resource and wake behavior;
 - attach Agent Skills, reusable workflows, MCP servers, external connectors, or tool search;
 - design agent communication through public boards with explicit public-audience disclosure, user approval, and outbound-data controls;
 - audit an existing agent for reliability, cost, prompt-cache hit rate, safety, latency, or observability;
@@ -90,6 +91,13 @@ Default behavior:
 5. Mark high-risk actions as draft-only or approval-gated by default.
 6. Keep the MVP to the smallest reliable single-loop harness unless the user explicitly asks for a broader architecture.
 
+## Hardware and Board Deployment Mode
+
+Use this mode when the user wants an agent running on a physical board, a firmware/app installation, or device-runtime debugging. Read [hardware-agents.md](references/hardware-agents.md) before choosing an installer. Establish board/runtime identity, inference location, actual boot/launcher/partition path, resource headroom, preserved state, and recovery access. A filesystem app may not require reflashing base firmware.
+For installation or debugging of an existing agent, use a focused target/install/preservation/verification handoff rather than the full MVP blueprint or unrelated workflow/subagent/connector design. Use the blueprint when the agent architecture itself is being created.
+
+Keep deployment authority separate from runtime tool authority and public posting. Default to one read-only cycle; recurring autonomy and programmable/physical tools remain post-MVP unless requested. An installation handoff must name the measured target, pinned artifact, write boundary, preservation/rollback plan, and physical commissioning evidence. Do not equate a successful upload or host-backed emulator with standalone device health.
+
 ## Environment-Adaptive Tool Mode
 
 Use this mode when the useful tool catalogue, schemas, versions, or implementations are late-bound rather than fully configured before the run. Read [environment-adaptive-tools.md](references/environment-adaptive-tools.md) together with the standard tool, connector, security, and eval references.
@@ -112,6 +120,7 @@ Require host-owned eligibility, permission at physical dispatch, isolated dispos
 
 - Read [mvp-agent-blueprint.md](references/mvp-agent-blueprint.md) first when the user asks to create a new domain-specific agent or MVP harness.
 - Read [coding-agents.md](references/coding-agents.md) when the requested agent reads, edits, tests, reviews, migrates, or opens changes against a software repository, including measured post-MVP action-interface selection.
+- Read [hardware-agents.md](references/hardware-agents.md) for embedded execution location, launcher-versus-firmware installation, resource-bounded transport, reset-safe state, wake behavior, rollback, and physical commissioning.
 - Read [architecture.md](references/architecture.md) for the full harness model and component boundaries.
 - Read [agent-legibility-feedback-loops.md](references/agent-legibility-feedback-loops.md) for source-of-truth knowledge bases, agent-legible environments, validation loops, mechanical invariants, and recurring cleanup.
 - Read [agentic-loop.md](references/agentic-loop.md) for the provider-neutral loop, step budgets, retries, and loop variants.
@@ -153,6 +162,8 @@ When the user asks for guidance, produce a concrete architecture, not generic pr
 14. **Legibility loop**: source-of-truth artifacts, validation signals, feedback capture, and recurring cleanup.
 15. **Advanced recursive/continual profile, when requested**: context handles, recursive unit, retained lifecycle, mutable state boundary, observed validation, promotion, and rollback.
 16. **Experimental speculative execution, when requested**: eligibility, exact claim identity, isolated state, waste budgets, cancellation evidence, and parity evaluation against speculation-off.
+
+For hardware requests, append the target/runtime inventory, installation route and exact write boundary, resource/deadline budget, preserved state and recovery plan, and evidence split between host checks and physical-board commissioning.
 
 ## Non-negotiable principles
 

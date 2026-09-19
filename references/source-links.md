@@ -118,6 +118,46 @@ Canonical guidance lives in [tools and permissions](tools-and-permissions.md#rec
 - Recursive Agent Harnesses paper: https://arxiv.org/abs/2606.13643
 - Voyager paper: https://arxiv.org/abs/2305.16291
 
+## Hardware agent session mining
+
+**Evidence checked 2026-09-19.** The local `hardware-agent` project is a private implementation case study, not a publicly reproducible dependency. Mine its Claude transcripts before relying on its accumulated `AGENTS.md`: that file mixes releases, historical failures, and operator-specific defaults. Five retained top-level JSONL transcripts cover 2026-09-14–18; the short diagnosis session overlaps its continued/forked transcript and is not independent replication. Initial board assembly/first provisioning predates these retained Claude logs. No physical device was contacted or reflashed for this knowledge update.
+
+Session references below identify line numbers in the original JSONL transcripts, not extracted text. They can be resolved under Claude's project store for `hardware-agent`; raw logs/backups/configuration stay private and are not shipped with this skill.
+
+| Session/revision | Source-observed evidence and limits |
+|---|---|
+| `8347724d-775d-46e7-a3e3-c0e189ad121c` (Sep 14–15) | App-only deployment with full flash backup and checks of actual partition table, selected `app0`, and NVS formatting guard. Tool output L234 records retained persona after boot. L473 exposes `HTTPClient::setTimeout(uint16_t)`; a proposed 90,000 ms wait wrapped instead of extending the wait. Captured model-output rejections led to field-specific corrections, unambiguous envelope recovery, and clipping cosmetic display fields. The final clean cycle does not by itself close an overnight freeze investigation. |
+| `eb4c34d7-b99c-444f-9ad9-4145c6c9ff24` (Sep 15) | Linux-like `sleep`/`crontab`/`at` interface is a scheduling DSL that delivers future instructions, not arbitrary OS command execution. Updating the image interrupted the preceding soak; historical observation cannot be credited to the replacement image. |
+| `baa44589-8050-4e1f-9556-17212c640294` and `c0ba1f14-518d-4b58-ab78-48c1ffb3d402` (Sep 17–18) | Diagnosis found a saved 12-hour wake plus restrictive instruction/tool-loading overhead, not proof of a bad model. 0.4.0 introduced a cross-route sleep ceiling and compiled tool catalogue; later night inspection found 30-second model waits and a ladder reset only after a perfectly clean cycle. 0.4.1 adjusted waits/reset semantics and deferred compaction. 0.4.2 added incremental answer-only SSE; tool outputs L1353/L1364 record parsed hardware streams. Emulator transport remains non-streamed, so emulator success does not cover device streaming. |
+| `23ee2d81-0c9a-4917-8cd8-c8a63fc6a920` (Sep 18) | M5Stack Cardputer ADV with UiFlow2/MicroPython 1.27.0 and a custom import-based `/flash/apps` launcher; app/module transfer rather than base reflash. L231 records the TLS clock probe, L373 later certificate errors after background clock sync, and L408 native secure-connection `ENOMEM`. Fixes addressed a pinned epoch defect, Unicode surrogate handling, streaming/slicing, early autostart, safe low-memory restart with remaining sleep, and saved effects/token rotation. Later diagnosis distinguishes a competing console reader from a reboot, post IDs from inbox sequence IDs, and queued Enter presses from a freeze. Physical display/keys and emoji-named network join were not fully verified. |
+
+The compiled case uses remote inference with an ESP32-S3, 16 MiB flash, and 8 MiB external RAM. Its 0.4.2 artifact was rehashed locally: `firmware.bin`, 1,417,312 bytes, SHA-256 `2d28e4af1ca0cd8bdd8fa7f9e86d757f2a8ee7941b6bea72d49543593cb22585`. The interpreter case also uses remote inference but a much smaller available interpreter heap. Neither is evidence of model weights running on the microcontroller.
+
+There is no project Git revision to cite. The source snapshot inspected on 2026-09-19 is pinned by SHA-256; paths are relative to the private project and hashes do not imply public availability:
+
+| Source | SHA-256 |
+|---|---|
+| `firmware/src/main.cpp` | `55cbb1e07d83b523f1cbc62ac6cce498272e5c69189287dde92a846f9b28bccf` |
+| `firmware/include/runtime_support.h` | `13293c59d4ab5965386370abf4ed8be9ea3fa08eb77fddd061ee33a5768435a1` |
+| `firmware/include/scheduler.h` | `16866a5f8ba51786a2472280d6b56e92a5b93d68913924fadc0059f29ab61948` |
+| `cardputer/device/dtr_net.py` | `d25dc136d9ef2c571085207c12bf1ef921790e72b3f1bc5cdc03b7db2a9f5698` |
+| `cardputer/device/dtr_agent.py` | `23ebdfa018cbbf7a705c4060bfd90f7b5b4b048c979ca718a7fa241ff2e124bb` |
+| `cardputer/device/dtr_py.py` | `2adb3d735ce21d1793c4b0118c3061c6e391c893768a0c7aa7d7fdb3932bd49e` |
+| `cardputer/launcher/main.py` | `74fada6c1f85a0f229ca48835e76149e3a2319e8073cc16122551f6236b54be8` |
+| `cardputer/tools/cp.py` | `38adf049b76fda150997c4e729bfd187131135299a084b850f5cb82df55a0ca5` |
+| `platformio.ini` | `91d3d7452d5e2699b07902627c9ed57f23e54a6f79e217c8d2eeac00af17a77a` |
+| `partitions.csv` | `28a5b290694d34bf22434e46ada57f13d0a93059660e903409a0f980ec271dde` |
+
+**Stronger generic guidance is not a claim about the implementation.** Immediate effect logging narrows a reset window but does not prove exactly-once behavior across remote acceptance and local checkpointing. The pinned firmware's version-change handler clears a shared `hold_until`; the generic guide instead requires server rate-limit floors to survive version changes. Interpreter file transfer removes the destination before renaming the candidate, so its crash atomicity is not established. The calculator's blacklist and renamed `range` meter are tested restrictions, not independently proven isolation. The clock workaround preserves `CERT_REQUIRED`/hostname checking in code but its epoch shift and plain-HTTP Date fallback are build-specific trust/compatibility caveats, not endorsed universal fixes. The compiled tool catalogue is a measured alternative to dynamic discovery, not permission to omit call-time validation or assume schemas never drift.
+
+Public supporting sources (links checked 2026-09-19):
+
+- [Espressif esptool: basic commands](https://docs.espressif.com/projects/esptool/en/latest/esp32s3/esptool/basic-commands.html): image inspection, flash read/write, erase, and verification; choose exact commands/ranges for the measured target, not this case's offsets.
+- [MicroPython 1.27.0 SSL](https://docs.micropython.org/en/v1.27.0/library/ssl.html), [GC](https://docs.micropython.org/en/v1.27.0/library/gc.html), and [time](https://docs.micropython.org/en/v1.27.0/library/time.html): pinned runtime API/heap/clock context; custom firmware behavior still needs device probes.
+- [M5Stack Cardputer ADV UiFlow2 programming](https://docs.m5stack.com/en/uiflow2/cardputer-adv/program): base runtime programming, not proof of the custom launcher's behavior.
+
+Canonical integration: [hardware agents](hardware-agents.md) owns the new installation/resource/power-loss boundaries; [evals](evals.md#hardware-agent-evals) owns the probe matrix. Existing loop, tool/approval, context, connector, scheduling, and public-disclosure owners are reused by link. Vendor-specific timeout values, clock shifts, credentials, personalities, local network names, and public posts are intentionally not copied into core guidance.
+
 ## Public-board communication
 
 - Get Posting Board agent instructions: https://getpostingboard.dev/skill.md
