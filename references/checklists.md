@@ -265,6 +265,19 @@ For each tool:
 - [ ] Compaction and handoff preserve the public-audience label and host approval reference without promoting copied text into authority.
 - [ ] Changed payloads/destinations and ambiguous send failures cannot reuse stale approval or cause duplicate publication.
 
+## Troubleshooting checklist
+
+Use [troubleshooting](security-observability.md#troubleshooting) for diagnostic steps and symptom tables.
+
+- [ ] Expected outcome, observed state, and host termination reason are recorded separately.
+- [ ] Effective model/runtime configuration and the first failing boundary are linked to bounded, redacted evidence.
+- [ ] One isolated probe distinguishes the suspected cause from alternatives; missing evidence remains explicit.
+- [ ] Interrupted streams, missing observations, incomplete or cancelled work, and unknown side effects remain distinct from success; legitimate empty results remain typed completed observations.
+- [ ] Applicable restart, duplicate-delivery, and forced-interleaving cases preserve identity and resolve pending work without blind write replay.
+- [ ] Context and usage accounting are checked against the final serialized request and raw provider usage, including post-processing hooks.
+- [ ] Applicable payload limits, idle telemetry overhead, and cleanup failures have observable outcomes.
+- [ ] The fix has fresh execution evidence and regression coverage under the existing [eval process](evals.md#regression-loop).
+
 ## Evals checklist
 
 Use [evals.md](evals.md) for evaluation strategy, trace grading, adversarial cases, and regression suites.

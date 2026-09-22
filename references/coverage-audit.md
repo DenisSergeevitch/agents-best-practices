@@ -34,6 +34,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Provider API differences | `provider-api-patterns.md` | Covers OpenAI Responses-style APIs, Chat Completions-style/OpenAI-compatible APIs, Anthropic APIs, hosted tools, adapters, streaming, and state. |
 | Security | `security-observability.md` | Covers threat model, guardrails, prompt injection, approvals, launch gates, and incidents. |
 | Observability | `security-observability.md` | Covers traces, events, token/cost/latency, and replay. |
+| Runtime troubleshooting | [security-observability.md](security-observability.md#troubleshooting), `SKILL.md`, `checklists.md` | Routes symptoms to evidence and isolated probes for streams, completion, recovery races, registrations, approvals, deadlocks, context/cost accounting, payload limits, and telemetry overhead; reuses existing mechanism and eval owners. |
 | Evals | `evals.md`, `coding-agents.md`, `checklists.md` | Covers runtime-state fixtures, paired and cross-capability cases, outcome and safety trace grading, failure-aware component diagnostics across context budgets, physical mutation versus judged-phase evidence, model/configuration sweeps, task economics, and regression launch gates. |
 | Implementation checklist | `checklists.md` | Includes design, tool, permission, context, planning, goal, skill, connector, eval, and rollout checklists. |
 

@@ -1,8 +1,8 @@
 ---
 name: agents-best-practices
-description: "Use this skill when designing, generating an MVP blueprint for, auditing, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, hardware agents and board deployment, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
+description: "Use this skill when designing, generating an MVP blueprint for, auditing, troubleshooting, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, context compaction, memory, skills, MCP/external connectors, public-board communications, hardware agents and board deployment, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.9.0"
+  version: "1.10.0"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---
@@ -60,6 +60,7 @@ Use this skill for prompts involving any of these intents:
 - attach Agent Skills, reusable workflows, MCP servers, external connectors, or tool search;
 - design agent communication through public boards with explicit public-audience disclosure, user approval, and outbound-data controls;
 - audit an existing agent for reliability, cost, prompt-cache hit rate, safety, latency, or observability;
+- troubleshoot partial streams, stalled turns, restart or cancellation races, duplicate actions, context-accounting errors, or telemetry overload;
 - create system prompts or developer instructions for a domain-specific agent;
 - make source-of-truth knowledge, validation signals, logs, metrics, or workflow state legible to an agent.
 
@@ -90,6 +91,10 @@ Default behavior:
 4. Include the core agentic loop, tool registry, permission matrix, context/memory/compaction, planning mode, goal-like loop criteria, skills/connectors, prompt-cache/cost strategy, observability, evals, and launch path.
 5. Mark high-risk actions as draft-only or approval-gated by default.
 6. Keep the MVP to the smallest reliable single-loop harness unless the user explicitly asks for a broader architecture.
+
+## Troubleshooting Mode
+
+When the user brings a failing run or runtime symptom, start with [troubleshooting](references/security-observability.md#troubleshooting) and load the linked mechanism owner as needed. Return the symptom, earliest failing boundary, observed evidence versus hypotheses, one discriminating probe, smallest corrective change, and regression coverage. State missing evidence explicitly; use a focused diagnostic handoff instead of the full architecture blueprint. Inspect advanced components only when the failing deployment uses them.
 
 ## Hardware and Board Deployment Mode
 
@@ -135,7 +140,7 @@ Require host-owned eligibility, permission at physical dispatch, isolated dispos
 - Read [skills-and-connectors.md](references/skills-and-connectors.md) for Agent Skills, progressive disclosure, predictive loading, MCP, external connectors, tool search, and attachment strategy. For public-board communication, use its [public disclosure and publication contract](references/skills-and-connectors.md#agent-communication-via-public-boards).
 - Read [system-prompts-instructions.md](references/system-prompts-instructions.md) for system/developer/user instruction hierarchy and prompt templates.
 - Read [provider-api-patterns.md](references/provider-api-patterns.md) for OpenAI, Anthropic, and OpenAI-compatible API implementation patterns.
-- Read [security-observability.md](references/security-observability.md) for guardrails, threat models, approval records, trace design, launch safety gates, and incident response.
+- Read [security-observability.md](references/security-observability.md) for guardrails, threat models, approval records, trace design, symptom-based troubleshooting, launch safety gates, and incident response.
 - Read [evals.md](references/evals.md) for evaluation strategy, runtime-state fixtures, cross-capability cases, failure-aware component diagnostics across context budgets, safety trace invariants, model/configuration sweeps, and launch criteria.
 - Read [checklists.md](references/checklists.md) for condensed implementation and audit checklists.
 - Read [source-links.md](references/source-links.md) for official links and provider-specific references.
@@ -143,7 +148,7 @@ Require host-owned eligibility, permission at physical dispatch, isolated dispos
 
 ## Default answer structure when advising a user
 
-When the user asks for guidance, produce a concrete architecture, not generic principles:
+When the user asks for architecture guidance, produce a concrete architecture, not generic principles. For an existing failure, use [Troubleshooting Mode](#troubleshooting-mode):
 
 0. **MVP boundary**: smallest useful version, assumptions, non-goals, and launch criteria.
 1. **Harness boundary**: what the model does versus what application code does.

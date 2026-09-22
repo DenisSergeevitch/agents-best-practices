@@ -10,6 +10,14 @@ Use this file when the user asks for cited, provider-specific, or standards-back
 - Evaluating skill output quality: https://agentskills.io/skill-creation/evaluating-skills
 - Using scripts in skills: https://agentskills.io/skill-creation/using-scripts
 
+## Harness bug report and troubleshooting
+
+- Mike Piccolo, [53 harness bugs encountered during development](https://x.com/mfpiccolo/status/2102089734004593140), posted September 21, 2026; post metadata retrieved through the [public mirror](https://api.fxtwitter.com/mfpiccolo/status/2102089734004593140) and the [original attached checklist image](https://pbs.twimg.com/media/HSwfeSNXEAALzSk?format=jpg&name=orig) inspected September 21, 2026. The note in the image is dated September 16, 2026.
+
+This is an author-reported incident list, not a new model, harness architecture, or controlled evaluation. It motivates checks around protocol completion, runtime lifecycle, context/accounting, and observability overhead. The post and image provide no pinned implementation, tests, or reproducible traces; the incidents and numerical claims were not independently reproduced. Do not generalize its provider counts, resource limits, timings, cost differences, or percentages into defaults.
+
+The symptom tables and isolated probes in [troubleshooting](security-observability.md#troubleshooting) are this skill's diagnostic synthesis, not fixes verified against the author's runtime. Existing references remain canonical for loop invariants, streaming adapters, typed tool results, permissions, workflow state, compaction, cache economics, and regression methodology; no separate architecture profile is introduced.
+
 ## Empirical coding-harness component selection
 
 - Paper: [An Empirical Study of Harness Design for Coding Agents, arXiv:2609.20804v1](https://arxiv.org/abs/2609.20804v1), submitted 17 September 2026; original HTML rechecked 19 September 2026.
@@ -182,6 +190,7 @@ Canonical guidance lives in [the public-board communication section](skills-and-
 ## Use in responses
 
 - Use Agent Skills links for format, metadata, progressive disclosure, descriptions, and skill evals.
+- Use the harness bug report for dated incident examples and troubleshooting prompts, not verified implementation behavior or portable performance claims.
 - Use empirical coding-harness research for conditional component-selection evidence; preserve the tested scope and bundled-intervention caveats rather than turning reported averages into universal defaults.
 - Use OpenAI links for API implementation patterns, function calling, hosted tools, guardrails, sandboxes, prompt caching, response-style APIs, and harness engineering practices.
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
