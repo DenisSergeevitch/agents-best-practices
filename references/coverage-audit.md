@@ -41,6 +41,7 @@ This file maps the required agent-harness knowledge areas to the Markdown files 
 | Observability | `security-observability.md` | Covers traces, events, token/cost/latency, and replay. |
 | Runtime troubleshooting | [security-observability.md](security-observability.md#troubleshooting), `SKILL.md`, `checklists.md` | Routes symptoms to evidence and isolated probes for streams, completion, recovery races, registrations, approvals, deadlocks, context/cost accounting, payload limits, and telemetry overhead; reuses existing mechanism and eval owners. |
 | Evals | `evals.md`, `coding-agents.md`, `checklists.md` | Covers runtime-state fixtures, paired and cross-capability cases, outcome and safety trace grading, failure-aware component diagnostics across context budgets, physical mutation versus judged-phase evidence, model/configuration sweeps, task economics, and regression launch gates. |
+| Performance optimization | [evals.md](evals.md#performance-optimization-and-regression-ratchets), `checklists.md`, `source-links.md` | Covers scoped timing provenance, proxy acceptance, versioned regression ratchets, evaluator-change review, and field-confirmed gains while reusing existing latency, trace, and feedback contracts. |
 | Implementation checklist | `checklists.md` | Includes design, tool, permission, context, planning, goal, skill, connector, eval, and rollout checklists. |
 
 ## Required language and scope checks

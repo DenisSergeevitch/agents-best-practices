@@ -401,6 +401,44 @@ task quality, cost, latency, and intervention rate over time
 
 Report results against the frozen baseline and attribute lift to the specific accepted diff. If repeated updates cannot beat that baseline without unacceptable regressions, keep automated application disabled. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md) for the refinement contract these cases exercise.
 
+## Performance optimization and regression ratchets
+
+Use this contract when performance improvement is an explicit objective. A measured baseline and regression gate can serve an MVP; unattended optimization, recurring monitoring, and parallel workstreams remain post-MVP. Apply the existing [feedback loop](agent-legibility-feedback-loops.md#feedback-loops) within its authorized scope.
+
+### Measurement contract
+
+Name the target boundary: harness-local processing, provider inference, tool/network wait, or client rendering. Define each journey from its triggering interaction to an observable completion event. Use [existing latency and task-economics definitions](#model-and-configuration-sweeps) and [correlated stage evidence](security-observability.md#capture-the-failing-boundary); a local improvement alone does not establish faster user-visible completion. Attribute overlapping work through the critical path rather than summing all stage durations.
+
+The evaluator owns timing boundaries and counters. Record the clock domain; use monotonic elapsed time within one process and explicit clock alignment or causally correlated spans across processes. Pin fixtures, data shape, cache state, dependencies, runtime, and measurement environment. Isolate harness overhead with fixed responses or mock tools where appropriate, then separately validate live end-to-end behavior; that isolation does not measure model quality or provider latency.
+
+Keep a versioned performance record:
+
+```text
+journey and completion boundary
+measurement owner and clock domain
+workload, fixture, and cache-state identity
+implementation, benchmark, and environment versions
+proxy-to-latency validation evidence
+trial aggregation and noise tolerance
+quality, safety, and cost constraints
+active threshold and prior baseline
+rollout cohort and acceptance or revert evidence
+```
+
+### Proxy acceptance
+
+A cheap counter is an optimization target only after two checks: it is repeatable for the declared workload, and improving it produces a meaningful latency improvement on representative cases. Instruction, allocation, or call counts are candidates, not universal guarantees. Reject unstable proxies and counters that improve while work moves outside the measured boundary or user latency fails to improve. Repeat calibration when workloads or measurement environments change.
+
+Wall-clock gates remain valid when repeated trials and declared uncertainty support them. For synthetic clocks or frame stepping, distinguish the simulated budget from observed physical-device performance. Use instrumentation overhead and correctness checks to ensure a lower count was not bought by dropping required work.
+
+### Ratchet and rollout acceptance
+
+A performance ratchet is a versioned upper bound for a lower-is-better metric. Run the benchmark on affected changes and reject regressions beyond its declared tolerance. Tighten the bound only from repeatable, accepted evidence; the best of many noisy samples is not a new baseline. Candidate optimizations must not weaken the benchmark, fixtures, threshold, or quality floor to pass. Evaluation changes require separate review and preserve the previous record; an incompatible environment or workload change needs a newly calibrated baseline rather than a silent reset.
+
+After an authorized rollout, compare the same journey under representative traffic, cache states, and concurrency. Accept the win only when user latency improves without violating the existing quality, safety, or cost constraints. A lab-only gain stays provisional; a failed field check follows the deployment's existing revert or disable procedure. Record the measured outcome before tightening the regression threshold, and retain the check in the [regression suite](#regression-loop).
+
+Stop or redirect experiments when measured benefit no longer justifies complexity or the declared budget. Keep scope, permissions, stopping rules, and any concurrent-worker lifecycle with their existing [goal](planning-and-goals.md), [tool](tools-and-permissions.md), and [workflow](workflow-orchestration.md) owners.
+
 ## Regression loop
 
 Every incident, review finding, or repeated manual correction should become a regression eval:

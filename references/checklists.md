@@ -358,6 +358,10 @@ Use [evals.md](evals.md) for evaluation strategy, trace grading, adversarial cas
 - [ ] Quality, safety, completed-task cost, first useful UI, and end-to-end latency gate model/configuration selection.
 - [ ] Component comparisons state tested budget/configuration scope, distinguish overflow and early failure from efficiency, and use mutation evidence separately from judged phases.
 - [ ] Alternative action profiles meet equivalent host-control and verification requirements or are explicitly reported as bundled interventions.
+- [ ] Performance targets identify journey boundaries, evaluator-owned measurements, clock domains, and versioned workload/environment records.
+- [ ] Benchmark proxies are repeatable and have evidence of representative latency improvement; simulated timing is labeled separately from physical-device results.
+- [ ] Regression thresholds use declared trial aggregation and tolerance; candidate optimizations cannot weaken the evaluator or silently reset baselines.
+- [ ] Deployed gains pass the [performance acceptance contract](evals.md#performance-optimization-and-regression-ratchets) before thresholds tighten; quality, safety, and cost constraints still pass.
 
 ## Minimal provider-neutral implementation path
 

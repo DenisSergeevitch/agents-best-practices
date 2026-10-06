@@ -147,6 +147,8 @@ Standard loop:
 
 For high-throughput systems, human attention becomes the scarce resource. Automate low-risk review and reserve humans for judgment, policy exceptions, high-risk commits, and unresolved ambiguity.
 
+For performance work, use the [performance eval contract](evals.md#performance-optimization-and-regression-ratchets) for benchmark validity and acceptance evidence; keep this execution feedback loop as the lifecycle owner.
+
 In an advanced post-MVP harness, repeated human corrections and trace or eval failures may feed a separate automated refiner. Keep that loop gated: it proposes a versioned supplemental-state change, the host checks scope and immutable policy, held-out evaluation measures the outcome, and failed changes are quarantined or rolled back. A model's self-reported improvement is never sufficient proof. See [self-refining recursive harnesses](self-refining-recursive-harnesses.md); the standard execution feedback loop above remains the default.
 
 ## Throughput and merge philosophy, generalized

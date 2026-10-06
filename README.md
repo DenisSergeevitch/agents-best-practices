@@ -327,6 +327,7 @@ Use [Always-on Agents and Durable Runtime](references/always-on-agents.md) for t
 - **"How should auto-compaction preserve active work?"** -> use [`references/context-memory-compaction.md`](references/context-memory-compaction.md).
 - **"What is the smallest safe coding-agent harness?"** -> use [`references/coding-agents.md`](references/coding-agents.md).
 - **"How should I evaluate an agent harness?"** -> use [`references/evals.md`](references/evals.md).
+- **"How can an agent improve performance without chasing misleading benchmarks?"** -> use [performance optimization and regression ratchets](references/evals.md#performance-optimization-and-regression-ratchets).
 - **"How do I make prompt caching work in a long-running agent, and when does warming pay?"** -> use [`references/prompt-caching-and-cost.md`](references/prompt-caching-and-cost.md), including its optional [economic warming contract](references/prompt-caching-and-cost.md#economic-cache-warming).
 - **"How do I support OpenAI, Anthropic, and OpenAI-compatible APIs?"** -> use [`references/provider-api-patterns.md`](references/provider-api-patterns.md).
 - **"What should I check before launch?"** -> use [`references/checklists.md`](references/checklists.md).

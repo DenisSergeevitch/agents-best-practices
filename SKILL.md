@@ -2,7 +2,7 @@
 name: agents-best-practices
 description: "Use this skill when designing, generating an MVP blueprint for, auditing, troubleshooting, refactoring, or explaining an agentic harness for any domain. Covers provider-neutral agent architecture for OpenAI, Anthropic, and OpenAI-compatible APIs: agent loops, tool design, record provenance, interactive presentation, user-memory lifecycles, environment-adaptive tools, speculative tool execution, late-bound capabilities, permissions, system prompts, planning, goals, always-on agents and durable runtime, adaptive agent teams, context compaction, memory, skills, MCP/external connectors, public-board communications, hardware agents and board deployment, self-refining recursive harnesses, programmable context, continual refinement, observability, evals, prompt caching, agent-legible environments, feedback loops, and safety."
 metadata:
-  version: "1.13.0"
+  version: "1.14.0"
   scope: "provider-neutral-agent-harness"
   file_policy: "markdown-only"
 ---
@@ -63,6 +63,7 @@ Use this skill for prompts involving any of these intents:
 - attach Agent Skills, reusable workflows, MCP servers, external connectors, or tool search;
 - design agent communication through public boards with explicit public-audience disclosure, user approval, and outbound-data controls;
 - audit an existing agent for reliability, cost, prompt-cache hit rate, safety, latency, or observability;
+- improve measured harness or application performance using validated benchmark proxies, production acceptance, and regression ratchets;
 - troubleshoot partial streams, stalled turns, restart or cancellation races, duplicate actions, context-accounting errors, or telemetry overload;
 - create system prompts or developer instructions for a domain-specific agent;
 - make source-of-truth knowledge, validation signals, logs, metrics, or workflow state legible to an agent.
@@ -158,7 +159,7 @@ Require host-owned eligibility, permission at physical dispatch, isolated dispos
 - Read [system-prompts-instructions.md](references/system-prompts-instructions.md) for system/developer/user instruction hierarchy and prompt templates.
 - Read [provider-api-patterns.md](references/provider-api-patterns.md) for OpenAI, Anthropic, and OpenAI-compatible API implementation patterns.
 - Read [security-observability.md](references/security-observability.md) for guardrails, threat models, approval records, trace design, symptom-based troubleshooting, launch safety gates, and incident response.
-- Read [evals.md](references/evals.md) for evaluation strategy, runtime-state fixtures, cross-capability cases, failure-aware component diagnostics across context budgets, safety trace invariants, model/configuration sweeps, routing/configuration/warming probes, and launch criteria.
+- Read [evals.md](references/evals.md) for evaluation strategy, runtime-state fixtures, cross-capability cases, failure-aware component diagnostics across context budgets, safety trace invariants, model/configuration sweeps, routing/configuration/warming probes, and launch criteria. For performance improvement, use its [measurement, proxy-validation, and regression-ratchet contract](references/evals.md#performance-optimization-and-regression-ratchets).
 - Read [checklists.md](references/checklists.md) for condensed implementation and audit checklists.
 - Read [source-links.md](references/source-links.md) for official links and provider-specific references.
 - Read [coverage-audit.md](references/coverage-audit.md) to verify the skill covers the requested harness topics.

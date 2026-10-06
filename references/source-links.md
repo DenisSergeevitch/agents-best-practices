@@ -60,6 +60,14 @@ Keep source-observed behavior separate from this skill's stronger guidance:
 
 Canonical additions: [per-request routing](agentic-loop.md#per-request-model-routing), [runtime configuration events](architecture.md#runtime-instruction-and-tool-configuration-events), and [economic warming](prompt-caching-and-cost.md#economic-cache-warming). Reuse instruction hierarchy, context preservation, tool permissions, adapter compatibility, and [focused evals](evals.md#routing-configuration-and-warming-evals) by link rather than creating another architecture profile.
 
+## Application performance optimization case study
+
+- Dated source: [How we made claude.ai 3x faster in two weeks](https://claude.dev/blog/how-we-made-claude-ai-faster/), Raymond Wang, Sam Attard, and Issac G., published September 23, 2026; inspected October 6, 2026.
+- The authors describe lab proxies checked against wall-clock latency, rejection of flaky or non-correlating benchmarks, CI ceilings lowered after improvements, and post-deployment field reads deciding whether to retain a change. They report human steering and approval of every shipped change.
+- The reported comparison uses August 13 versus August 27 real-user p75 measurements of application journeys. It does not measure harness overhead or isolate the effect of the agent from human work and concurrent changes.
+
+This is a first-party engineering account without linked benchmark code, raw telemetry, or a pinned implementation commit. Numerical gains, benchmark determinism, synthetic frame-stepping results, and incident counts remain author-reported. The [performance eval contract](evals.md#performance-optimization-and-regression-ratchets) adds our provider-neutral requirements for measurement provenance, versioned baselines, reviewed evaluator changes, and production acceptance; these are stronger guidance, not verified implementation claims. Reuse the existing feedback, tracing, permission, and workflow owners.
+
 ## Pi Durable task and conversation runtime
 
 - Launch article: [Pi Durable](https://earendil.com/posts/pi-durable/), October 1, 2026. The article describes an experimental framework alongside the coding-agent release.
@@ -273,6 +281,7 @@ Canonical guidance lives in [the public-board communication section](skills-and-
 - Use Agent Skills links for format, metadata, progressive disclosure, descriptions, and skill evals.
 - Use the harness bug report for dated incident examples and troubleshooting prompts, not verified implementation behavior or portable performance claims.
 - Use empirical coding-harness research for conditional component-selection evidence; preserve the tested scope and bundled-intervention caveats rather than turning reported averages into universal defaults.
+- Use the [performance case study](#application-performance-optimization-case-study) for measurement-driven optimization practice, with its author-reported and application-performance scope preserved.
 - Use OpenAI links for API implementation patterns, function calling, hosted tools, guardrails, sandboxes, prompt caching, response-style APIs, and harness engineering practices.
 - Use Anthropic links for simple agent patterns, context engineering, tool ergonomics, long-running harnesses, agent evals, MCP execution patterns, and skill architecture.
 - Use MCP links for wire-level server and tool discovery, typed catalogues, authorization, catalogue caching and change signals, and connector design. The protocol does not by itself verify semantic suitability, establish trust, or grant execution authority.
