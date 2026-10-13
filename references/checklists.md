@@ -48,6 +48,26 @@
 - [ ] Context/model/configuration changes, missed deadlines, and cancellation invalidate scheduled and in-flight work.
 - [ ] Successful, failed, aborted, late, and unknown refresh outcomes are accounted for; requested cancellation is not proof of no charge.
 
+## Realtime voice agent checklist
+
+- [ ] The [voice profile](realtime-voice-agents.md) specifies native/chained speech, duplex/turn behavior, and in-session/delegated execution independently.
+- [ ] A narrow useful voice MVP and simpler baseline are defined; optional backend orchestration and durable recovery are justified when used.
+- [ ] One effective response-admission policy owns automatic/manual triggers and duplicate suppression.
+- [ ] Input evidence retains source, correlation, provisional/revised status when available, and current intent revision.
+- [ ] Recognition uncertainty and critical-entity clarification obey the existing permission and confirmation policy.
+- [ ] Session/media epochs, response/segment IDs, and playback-cursor provenance distinguish generated, queued, and observed output.
+- [ ] Interruption separately resolves playback, speech generation, conversation repair, and backend work disposition.
+- [ ] Queued obsolete audio is fenced; retained context does not presume unheard output was delivered.
+- [ ] Corrections invalidate obsolete result/confirmation eligibility before speech or apply-time action.
+- [ ] A work bridge, when used, preserves task/revision identity, context watermark, acceptance, and terminal outcome.
+- [ ] Progress speech, silence, and success claims match verified application state.
+- [ ] Audio queue duration and age limits, deadlines, overflow policy, and loss accounting are explicit.
+- [ ] Close/reconnect behavior fences old-session events and preserves the declared backend lifetime without blind effect retry.
+- [ ] Preplayback checks, when required, bind to current eligible audio; late checks cannot release canceled segments.
+- [ ] Voice context reduction preserves active intent, work/authority state, and playback evidence through the existing owners.
+- [ ] Useful-answer and acknowledgment timing are separate; interruption timing and clock domains are defined.
+- [ ] [Voice evals](evals.md#realtime-voice-agent-evals) pass under target acoustic/device conditions with task-state and audible-output gates scored independently.
+
 ## Hardware agent and board deployment checklist
 
 - [ ] Inference location and dependencies on a running host are explicit.

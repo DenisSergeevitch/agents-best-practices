@@ -46,6 +46,32 @@ for item in response.output:
 
 Use the harness for private/business tools, permission checks, durable state, and audit logs even when hosted tools are available.
 
+## Realtime voice adapters
+
+Choose the interaction architecture using [realtime voice agents](realtime-voice-agents.md). The following OpenAI protocol distinctions were checked October 13, 2026; current model evidence and documentation caveats live in [source links](source-links.md#realtime-voice-agents).
+
+### OpenAI Realtime API
+
+- Speech-to-speech sessions support `server_vad`, `semantic_vad`, or manual turn control. `create_response` and `interrupt_response` control different behaviors; configure the effective response owner rather than treating every speech event as a command to create a response.
+- Treat `response.done` and its `response.status` (`completed`, `cancelled`, `failed`, or `incomplete`) as generation termination. This event does not establish playback completion. The conversation guide's `response.cancelled` wording differs from the current server-event schema; use the schema for the selected API version.
+- On WebSocket interruption, stop local playback and send `conversation.item.truncate` with the item ID and the played `audio_end_ms`. WebRTC/SIP manage output-buffer truncation on the server. Neither path provides a precisely aligned shortened transcript or evidence of physical audibility on every client.
+
+### OpenAI GPT-Live
+
+GPT-Live is a separate full-duplex API with a delegated execution backend, not a renamed Realtime session. Its client and managed Responses delegation modes have different context ownership.
+
+| Boundary | Adapter contract |
+|---|---|
+| Client delegation | `session.delegation.created` provides `delegation.id`, target, and `offset_ms`, not task text. Build the request from collected transcripts and current application state. |
+| Transcript stream | Input/output transcript deltas have approximate `start_ms`/`end_ms`; they have no item ID or completed-turn event. Preserve fragments and times, and correlate overlapping speakers independently. |
+| Context updates | `session.instructions.append`, `session.thinking.append`, and `session.commentary.append` take plain-string content of at most 500 tokens and a required `delegation_id`: a known client delegation ID or `null` for general context. |
+| Update receipts | Match append acknowledgments through `client_event_id`. They describe estimated context injection, not speech/playback completion or proof that the model used the entire update. |
+| Quiet versus spoken facts | Thinking context is not spoken immediately but can influence later speech; commentary is paraphrased aloud. Neither is a private channel for secrets or backend reasoning. |
+| Backend configuration | Managed delegation exposes a subset of Responses settings. Check reasoning/tool support against the chosen backend model; changing delegation mode requires a new Live session. |
+| Output control | Primary Live WebSocket audio deltas have no timing fields or output-audio-done event; reflected sideband deltas have `start_ms`/`end_ms`, which are not playback receipts. Sideband controls do not mute output; pre-playback checks require a client player or media relay that buffers and releases audio. |
+
+Keep the Live delegation ID distinct from Responses response/tool-call IDs and application operation IDs. Use the [voice profile](realtime-voice-agents.md) for cancellation, revision fencing, permissions, playback evidence, and recovery rather than inferring those guarantees from a provider event.
+
 ## Chat Completions-style and OpenAI-compatible APIs
 
 Use Chat Completions-style APIs when you need compatibility with OpenAI-compatible providers or when your harness already owns message history manually.

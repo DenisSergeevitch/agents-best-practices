@@ -316,6 +316,8 @@ For scheduled monitors and briefs, use its [recurring collection and delivery co
 
 ### Other things the skill is good for
 
+- **"How do I build a voice agent that handles interruptions and corrections while tools run?"** -> use the [realtime voice profile](references/realtime-voice-agents.md) for media, turn, playback, and execution boundaries, and [voice evals](references/evals.md#realtime-voice-agent-evals) for task and audible acceptance. Start with a narrow voice MVP; broader orchestration is optional.
+
 - **"How can one session route requests across models safely?"** -> use [per-request model routing](references/agentic-loop.md#per-request-model-routing) for selected/dispatched identity, target compatibility, and routing-state contracts.
 - **"How can instructions and tools change during a conversation without losing replay semantics?"** -> use [runtime configuration events](references/architecture.md#runtime-instruction-and-tool-configuration-events).
 - **"Which compaction, planning, and action-interface profile fits my model, task mix, and context budget?"** -> use [component diagnostics](references/evals.md#component-diagnostics), which links to the existing mechanism owners and separates efficiency from premature failure.
@@ -347,6 +349,7 @@ A reference for people building agentic systems where the model is only one part
 - environment-adaptive discovery, validation, scoped binding, and drift handling,
 - experimental speculative scheduling for eligible programmatic tool calls,
 - runtime permission checks outside the model,
+- realtime voice interaction with explicit turn ownership, playback repair, and task-result freshness,
 - planning mode and approval-gated execution,
 - workflow orchestration for large decomposable tasks,
 - post-MVP adaptive teams for distinct research approaches and evidence-driven reallocation,
@@ -385,6 +388,7 @@ agents-best-practices/
     ├── agentic-loop.md                       # loop invariants, retries, budgets, stopping
     ├── tools-and-permissions.md              # typed tools, risk classes, approvals
     ├── hardware-agents.md                    # board installation, resources, reset recovery, commissioning
+    ├── realtime-voice-agents.md              # turns, playback repair, speech/execution boundaries
     ├── environment-adaptive-tools.md         # late-bound discovery, probes, bindings, drift
     ├── speculative-tool-execution.md         # prelaunch, exact claims, waste, cancellation
     ├── planning-and-goals.md                 # planning mode and long-running goals
