@@ -111,6 +111,22 @@ Payload fingerprint conflict checks, deployment fencing, authority revalidation,
 
 Canonical guidance lives in [always-on agents](always-on-agents.md) and [context and compaction](context-memory-compaction.md). Reuse the existing instruction hierarchy, tool permissions, goals/budgets, security/observability, and evaluation owners by link; source-specific storage settings and experimental APIs remain in this intake.
 
+## Scheduled collection and delivery bookkeeping
+
+- Lance Martin and CJ Avilla, [Building effective agent automations](https://claude.dev/blog/building-effective-agent-automations/), published October 8, 2026; article and linked implementation rechecked October 13, 2026.
+- Reference implementation: [Claude Quickstarts daily brief at `9ec32b91df50b0d4906cae64b13c6298055ff40d`](https://github.com/anthropics/claude-quickstarts/tree/9ec32b91df50b0d4906cae64b13c6298055ff40d/managed-agents/daily-brief), committed October 7, 2026. Inspected the [agent instructions](https://github.com/anthropics/claude-quickstarts/blob/9ec32b91df50b0d4906cae64b13c6298055ff40d/managed-agents/daily-brief/agents/daily-brief/agent.md), [deployment](https://github.com/anthropics/claude-quickstarts/blob/9ec32b91df50b0d4906cae64b13c6298055ff40d/managed-agents/daily-brief/agents/daily-brief/deployment.md), README, environment and memory-store configuration, credential setup, and inspection utilities. No runtime was deployed or source code executed; the inspected quickstart contains no deterministic collector/delivery implementation or corresponding tests.
+
+This is a composition of incremental collection, partial-result reporting, and external-effect bookkeeping, not a new model, training method, or autonomy level. The useful delta is their monitoring-specific relationship; generic scheduling, memory, permissions, budgets, and retries already have owners.
+
+Source-observed limits:
+
+- Bookmarks, failed-read coverage, live-status checks, receipt-before-bookkeeping, and uncertain-send handling are prompt instructions. Pagination, complete scan boundaries, timestamp ties, late updates, and per-repository checkpoint semantics are unspecified; the requested ten-minute overlap conflicts with the literal Slack `oldest=bookmark` instruction.
+- Publication checks Slack's response body for `ok` and a message timestamp, but the quickstart supplies no atomic bookkeeping or concurrent-run exclusion. Its quiet branch asks for a posted status/message ID despite sending nothing; duplicate-title bookkeeping is unclear.
+- Read-only preferences and mutable state are deployment configuration. The default shared Slack token can write in joined source channels, as the README warns; destination-only and dry-run no-post behavior remain prompt constraints. GitHub read-only access depends on the supplied token's actual rights.
+- A per-run cap can pause a session and appear as silence; see [scheduled deployment budgets](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#set-a-budget-on-each-run). The quickstart includes manual inspection, not an independent scheduled watchdog.
+
+The [recurring collection contract](always-on-agents.md#recurring-collection-and-delivery-bookkeeping) and its [failure probes](evals.md#always-on-and-durable-runtime-evals) are stronger provider-neutral guidance, not guarantees demonstrated by this sample. Reuse existing transaction, external-effect, provenance, permission, and observability owners by link.
+
 ## OpenAI
 
 - OpenAI Agents guide: https://developers.openai.com/api/docs/guides/agents

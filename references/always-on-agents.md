@@ -142,6 +142,36 @@ status: "pending | claimed | completed | skipped | failed | cancelled"
 
 Recheck current policy, approvals, goal state, deadline, budgets, and source freshness before each turn. Coalesce duplicate wakeups, fence concurrent claims, and record late-run disposition. A heartbeat establishes a liveness or reconsideration signal, not progress or authorization. Cancel schedules on completion, expired/revoked authority, or repeated no-progress outcomes under [goal stopping rules](planning-and-goals.md).
 
+## Recurring collection and delivery bookkeeping
+
+For explicitly requested recurring monitoring, distinguish **collection progress**, **source coverage**, and **delivery progress**. These are application records, separate from the [observation/replay cursors](#observation-and-reconnection). The host owns their transitions; model-written notes and a successful tool call alone cannot establish complete coverage or confirmed delivery. Reuse [local commit and external-effect boundaries](#records-and-atomic-publication), [record provenance](tools-and-permissions.md#record-provenance-and-authoritative-fields), and the existing [retry policy](agentic-loop.md#retry-policy).
+
+Minimal records:
+
+```text
+SourceScan: source/partition, query revision, prior checkpoint, scan cutoff,
+            proven boundary, coverage (complete | partial | failed), evidence/reason
+Edition: stable identity, destination, source-scan refs, selected item versions,
+         status (prepared | posting | confirmed | suppressed | held | unknown), receipt
+DeliveryLedger: source/item/version, edition identity, confirmed receipt
+```
+
+### Collection checkpoints and coverage
+
+Resume each source partition from its last committed collection checkpoint rather than a fixed lookback relative to the schedule. Define first-run initialization and how changed queries or newly added partitions establish their own checkpoints. A missed run extends the collection interval; it must not silently discard the intervening period.
+
+Specify the source's ordering, pagination, scan cutoff, timestamp ties, and late-arrival/update behavior. Use a source-supported continuation boundary or an explicit overlap/rescan policy with stable item/version deduplication. The newest observed timestamp is not proof that earlier pages or later updates were covered. Exhaust the declared interval before marking it complete; rate limits, expired history, truncation, and unreadable pages must expose a gap rather than manufacture completeness.
+
+Failed or partial scans preserve that partition's last complete checkpoint. Other partitions may progress independently. Persist coverage for every configured partition, including successful empty reads; surface omitted or incomplete sources in the report or its associated run status. Do not infer "nothing changed" from missing tools, authentication failure, or an incomplete read. Use the existing [tool results and errors](tools-and-permissions.md#tool-result-format) for the underlying observations.
+
+### Edition outcomes and progress commits
+
+Bind an edition identity to its destination and stable content intent; retain selected item versions and scan references. Record the publication attempt before dispatch. Mark an edition confirmed and add delivered-item ledger entries only after a destination-specific success receipt with a resolvable message/effect identity. HTTP success, a generated draft, or a recent-title lookup alone cannot establish delivery or exclude concurrent attempts. Apply the existing ownership/fencing and external-effect reconciliation contracts rather than introducing a second retry mechanism.
+
+Commit collection checkpoints, candidate dispositions, and edition outcomes as a related local batch. A complete scan may advance after confirmed delivery or explicitly permitted suppression. If collection advances before delivery, durably retain its pending candidates in that same batch so a failed send cannot lose them. Failed/unknown sends never create delivered-item entries; without retained candidates they also hold the collection checkpoint. Reconcile an unknown publication before attempting another send.
+
+A deliberately quiet edition is **suppressed**, with its policy reason and coverage evidence; it has no delivery receipt and cannot mark unsent items delivered. Suppression cannot relabel an unreadable source as a healthy empty read. Keep edition delivery and source coverage separate from run health: a budget pause, missing run, held publication, and unknown effect are distinct operational outcomes under [observability and incident controls](security-observability.md). Validate these contracts with the [recurring collection probes](evals.md#always-on-and-durable-runtime-evals).
+
 ## Recovery and build sequence
 
 Start from the measured request-scoped single-agent baseline. Add one durable session with one storage owner, then atomic submission receipts and local publication. Add typed task phases and effect reconciliation before background tasks; add owned-work barriers before accepting completion claims. Introduce document forks and live views only for demonstrated needs. Finally add supervised takeover and bounded schedules, keeping recursion and online refinement optional.

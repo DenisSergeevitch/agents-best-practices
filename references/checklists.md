@@ -282,6 +282,10 @@ Use [adaptive agent teams](adaptive-agent-teams.md) for the contracts and [adapt
 - [ ] Snapshot attachment, delivery/replay cursor types, overflow/gap recovery, count/byte limits, and active-callback cleanup are tested.
 - [ ] Concurrent compaction pins its range, preserves the new tail, rejects stale publication, and accounts for stale/unknown attempts.
 - [ ] Takeover fences stale writers; wakeups revalidate authority and stop under goal/deadline/budget rules.
+- [ ] Recurring collectors pass the [collection contract](always-on-agents.md#recurring-collection-and-delivery-bookkeeping): per-partition checkpoints, initialization/query changes, pagination, cutoff, ties, and late updates are explicit.
+- [ ] Every partition has complete/partial/failed coverage; failed/partial reads preserve its last complete checkpoint and expose omissions.
+- [ ] Confirmed delivery alone adds delivered-item entries; collection advancement without confirmed delivery or permitted suppression atomically retains pending candidates, and unknown sends reconcile before retry.
+- [ ] Suppression has a policy reason and no fabricated receipt; incomplete sources, held/unknown delivery, budget pauses, and missing runs remain distinguishable from healthy empty reads.
 - [ ] Crash-window, cancellation, fork, migration, observer, and compaction probes pass with unresolved effects and data-loss exposure reported.
 
 ## Self-refining recursive harness checklist
