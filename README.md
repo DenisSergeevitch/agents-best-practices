@@ -9,6 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Agent Skill](https://img.shields.io/badge/Agent-Skill-7c3aed)](SKILL.md)
 [![Codex](https://img.shields.io/badge/Codex-compatible-111827)](SKILL.md)
+[![Autohand Code](https://img.shields.io/badge/Autohand_Code-compatible-0f766e)](SKILL.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-compatible-8b5cf6)](SKILL.md)
 
 <br>
@@ -40,6 +41,7 @@ Install the agents-best-practices skill for me:
    user-level skills directory as `agents-best-practices/`.
    Use the skill directory my agent reads on this machine, for example:
    - Codex: ~/.codex/skills/
+   - Autohand Code: ~/.autohand/skills/
    - Claude Code: ~/.claude/skills/
 2. Verify that SKILL.md, icon.jpeg, and the references/ directory are present.
 3. Confirm the install path when done.
@@ -52,6 +54,16 @@ Install the agents-best-practices skill for me:
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
 git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
   "${CODEX_HOME:-$HOME/.codex}/skills/agents-best-practices"
+
+# Autohand Code, user-level
+mkdir -p "$HOME/.autohand/skills"
+git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
+  "$HOME/.autohand/skills/agents-best-practices"
+
+# Autohand Code, project-level
+mkdir -p .autohand/skills
+git clone https://github.com/DenisSergeevitch/agents-best-practices.git \
+  .autohand/skills/agents-best-practices
 
 # Claude Code, user-level
 mkdir -p "$HOME/.claude/skills"
